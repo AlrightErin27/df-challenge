@@ -1,3 +1,4 @@
+import React, { useState } from "react";
 import "./App.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
@@ -8,16 +9,25 @@ import Entry from "./Components/Entry/Entry";
 import Dashboard from "./Components/Dashboard/Dashboard";
 
 function App() {
+  //is user logged in
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+
   return (
     <Router>
-      <div style={{ height: "100%" }}>
-        <Home />
-        <Routes>
-          {/* Render Home as a wrapper for other components */}
-          <Route path="/" element={<Entry />} />
-          <Route path="/dashboard" element={<Dashboard />} />
-        </Routes>
-      </div>
+      <Routes>
+        <Route
+          path="/"
+          element={
+            <Home>
+              {isLoggedIn ? (
+                <Dashboard />
+              ) : (
+                <Entry onLogin={() => setIsLoggedIn(true)} />
+              )}
+            </Home>
+          }
+        />
+      </Routes>
     </Router>
   );
 }
