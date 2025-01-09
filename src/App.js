@@ -5,9 +5,7 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 // Components
 import Home from "./Components/Home/Home";
 import Entry from "./Components/Entry/Entry";
-
 import Dashboard from "./Components/Dashboard/Dashboard";
-
 import CreateList from "./Components/Dashboard/CreateList";
 import ViewSingleList from "./Components/Dashboard/ViewSingleList";
 
