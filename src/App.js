@@ -1,7 +1,12 @@
 import React, { useState } from "react";
 import "./App.css";
 import "bootstrap/dist/css/bootstrap.min.css";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  Navigate,
+} from "react-router-dom";
 
 // Components
 import Home from "./Components/Home/Home";
@@ -9,22 +14,36 @@ import Entry from "./Components/Entry/Entry";
 import Dashboard from "./Components/Dashboard/Dashboard";
 
 function App() {
-  //is user logged in
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(true);
 
   return (
     <Router>
       <Routes>
+        {/* Entry Route */}
         <Route
           path="/"
           element={
-            <Home>
-              {isLoggedIn ? (
-                <Dashboard />
-              ) : (
+            isLoggedIn ? (
+              <Navigate to="/dashboard" replace />
+            ) : (
+              <Home>
                 <Entry onLogin={() => setIsLoggedIn(true)} />
-              )}
-            </Home>
+              </Home>
+            )
+          }
+        />
+
+        {/* Dashboard Route */}
+        <Route
+          path="/dashboard"
+          element={
+            isLoggedIn ? (
+              <Home>
+                <Dashboard />
+              </Home>
+            ) : (
+              <Navigate to="/" replace />
+            )
           }
         />
       </Routes>
