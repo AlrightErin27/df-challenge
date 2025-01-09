@@ -9,28 +9,35 @@ export default function Home() {
   const navigate = useNavigate();
   const location = useLocation();
 
-  const handleLogout = () => {
-    setIsLoggedIn(false);
+  // Called when a user logs in or registers
+  const handleLogin = () => {
+    const token = localStorage.getItem("token"); // Check for the token in localStorage
+    if (token) {
+      setIsLoggedIn(true); // Set login state to true if token exists
+    } else {
+      setIsLoggedIn(false); // Ensure state is false if no token
+    }
   };
 
-  // Check for token on app load
-  useEffect(() => {
-    const token = localStorage.getItem("token");
-    if (token) {
-      setIsLoggedIn(true);
-    } else {
-      setIsLoggedIn(false);
-    }
-  }, []);
+  // Called when a user logs out
+  const handleLogout = () => {
+    localStorage.removeItem("token"); // Remove the JWT
+    setIsLoggedIn(false); // Set login state to false
+  };
 
-  // Update the path based on isLoggedIn
+  // Check for token on initial load
+  useEffect(() => {
+    handleLogin(); // Call handleLogin to verify token on app load
+  }, []); // Only runs once on initial render
+
+  // Redirects user based on login state
   useEffect(() => {
     if (isLoggedIn && location.pathname !== "/dashboard") {
-      navigate("/dashboard");
+      navigate("/dashboard"); // Go to dashboard if logged in
     } else if (!isLoggedIn && location.pathname !== "/") {
-      navigate("/");
+      navigate("/"); // Go to entry page if logged out
     }
-  }, [isLoggedIn, navigate, location.pathname]);
+  }, [isLoggedIn, navigate, location.pathname]); // Runs whenever isLoggedIn or path changes
 
   return (
     <div className="home-cont">
@@ -41,7 +48,11 @@ export default function Home() {
         </div>
 
         <div className="content-container p-4 bg-transparent border rounded-3 shadow">
-          {!isLoggedIn ? <Entry /> : <Dashboard />}
+          {!isLoggedIn ? (
+            <Entry handleLogin={handleLogin} /> // Pass handleLogin to Entry
+          ) : (
+            <Dashboard handleLogout={handleLogout} /> // Pass handleLogout to Dashboard
+          )}
         </div>
 
         <footer className="mt-4">

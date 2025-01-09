@@ -4,7 +4,7 @@ import LoginForm from "./LoginForm";
 import RegForm from "./RegForm";
 
 //  * Entry component serves as a toggle-able container for Login and Registration forms.
-export default function Entry() {
+export default function Entry({ handleLogin }) {
   const [showLogin, setShowLogin] = useState(true);
 
   //  * Toggles between the LoginForm and RegForm.
@@ -18,7 +18,7 @@ export default function Entry() {
         {showLogin ? (
           <>
             {/* Render LoginForm and a button to switch to Registration */}
-            <LoginForm />
+            <LoginForm handleLogin={handleLogin} />
             <button className="toggle-btn" onClick={toggleForm}>
               Don't have an account? Register
             </button>
@@ -26,7 +26,7 @@ export default function Entry() {
         ) : (
           <>
             {/* Render RegForm and a button to switch to Login */}
-            <RegForm />
+            <RegForm handleLogin={handleLogin} />
             <button className="toggle-btn" onClick={toggleForm}>
               Already have an account? Login
             </button>

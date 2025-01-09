@@ -3,50 +3,39 @@ import "./RegForm.css";
 
 //  * Registration form for new users.
 //  * Sends form data to the backend /register endpoint.
-
-export default function RegForm() {
+export default function RegForm({ handleLogin }) {
   const [formData, setFormData] = useState({
     email: "",
     username: "",
     password: "",
   });
+
   const [message, setMessage] = useState("");
 
-  //  * Updates the form data state whenever the user types in the input fields.
   const handleChange = (event) => {
     const { id, value } = event.target;
     setFormData((prevData) => ({ ...prevData, [id]: value }));
   };
 
-  //  * Handles form submission and sends a POST request to the backend for registration.
   const handleRegister = async (event) => {
     event.preventDefault();
     try {
-      console.log("Submitting registration data:", formData);
       const response = await fetch("/register", {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify(formData),
       });
 
       const data = await response.json();
-      if (response.ok) {
-        //SUCCESSFUL REG
-        console.log("Registration successful:", data);
-
-        // Store the JWT in localStorage
-        localStorage.setItem("token", data.token);
-
-        setMessage("Registration successful! Please log in.");
-        setFormData({ email: "", username: "", password: "" });
+      if (response.ok && data.token) {
+        // Ensure a token is received
+        localStorage.setItem("token", data.token); // Save token in localStorage
+        handleLogin(); // Notify Home.js to check token and set state
+        setMessage("Registration successful!");
       } else {
-        console.error("Registration failed:", data.error);
         setMessage(data.error || "Registration failed.");
       }
     } catch (error) {
-      console.error("Error during registration:", error);
       setMessage("An error occurred. Please try again.");
     }
   };

@@ -4,7 +4,7 @@ import Lists from "./Lists";
 import CreateList from "./CreateList";
 import ViewSingleList from "./ViewSingleList";
 
-export default function Dashboard() {
+export default function Dashboard({ handleLogout }) {
   const [currentLocal, setCurrentLocal] = useState("");
 
   // function viewSelList(listId) {
@@ -45,7 +45,7 @@ export default function Dashboard() {
       <div className="container text-center">
         {handleDashView()}
 
-        <button className="custom-btn" onClick={() => handleLogOut()}>
+        <button className="custom-btn" onClick={() => handleLogout()}>
           Logout
         </button>
       </div>
