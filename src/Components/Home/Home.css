@@ -39,6 +39,9 @@ body {
   color: var(--white);
   font-family: "Poppins", sans-serif;
   padding: 20px 0;
+  /* background-image: url("../../Imgs/ferns.jpg");
+  background-repeat: no-repeat;
+  background-size: cover; */
 }
 
 .header-container {

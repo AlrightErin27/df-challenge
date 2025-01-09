@@ -33,7 +33,12 @@ export default function LoginForm() {
 
       const data = await response.json();
       if (response.ok) {
+        //successful log in
         console.log("Login successful:", data);
+
+        // Store the JWT in localStorage
+        localStorage.setItem("token", data.token);
+
         setMessage("Login successful!");
         // Redirect to dashboard or handle session
       } else {

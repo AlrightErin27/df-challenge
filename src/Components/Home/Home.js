@@ -9,13 +9,19 @@ export default function Home() {
   const navigate = useNavigate();
   const location = useLocation();
 
-  const handleLogin = () => {
-    setIsLoggedIn(true);
-  };
-
   const handleLogout = () => {
     setIsLoggedIn(false);
   };
+
+  // Check for token on app load
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    if (token) {
+      setIsLoggedIn(true);
+    } else {
+      setIsLoggedIn(false);
+    }
+  }, []);
 
   // Update the path based on isLoggedIn
   useEffect(() => {

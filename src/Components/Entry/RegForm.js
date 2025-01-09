@@ -33,7 +33,12 @@ export default function RegForm() {
 
       const data = await response.json();
       if (response.ok) {
+        //SUCCESSFUL REG
         console.log("Registration successful:", data);
+
+        // Store the JWT in localStorage
+        localStorage.setItem("token", data.token);
+
         setMessage("Registration successful! Please log in.");
         setFormData({ email: "", username: "", password: "" });
       } else {
