@@ -1,0 +1,15 @@
+html,
+body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+#root {
+  height: 100%;
+}
+
+.dashboard-cont {
+  background-color: rgb(119, 130, 36);
+  height: 100%;
+}

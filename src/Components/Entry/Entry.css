@@ -1,0 +1,17 @@
+/* Entry.css */
+
+html,
+body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+#root {
+  height: 100%;
+}
+
+.entry-cont {
+  background-color: rgb(84, 100, 169);
+  height: 100%;
+}
