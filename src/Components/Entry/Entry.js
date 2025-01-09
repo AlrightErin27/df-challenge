@@ -3,7 +3,7 @@ import "./Entry.css";
 import LoginForm from "./LoginForm";
 import RegForm from "./RegForm";
 
-//  * Entry component serves as a toggleable container for Login and Registration forms.
+//  * Entry component serves as a toggle-able container for Login and Registration forms.
 export default function Entry() {
   const [showLogin, setShowLogin] = useState(true);
 

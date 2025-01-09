@@ -10,7 +10,6 @@ export default function RegForm() {
     username: "",
     password: "",
   });
-
   const [message, setMessage] = useState("");
 
   //  * Updates the form data state whenever the user types in the input fields.

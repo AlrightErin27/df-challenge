@@ -1,19 +1,24 @@
+// Import required modules
 const express = require("express");
 const dotenv = require("dotenv");
 const mongoose = require("mongoose");
 const bcrypt = require("bcrypt");
+const jwt = require("jsonwebtoken");
 const User = require("./models/User");
+const cors = require("cors");
 
-//start backend and frontend $: npm run start-all
-
-// Initialize dotenv
+// Initialize dotenv to use environment variables
 dotenv.config();
 
 const app = express();
 const PORT = process.env.PORT || 4000;
 
 // ---------------------------------------------------------- Middleware
-app.use(express.json()); // Parse JSON request bodies
+// Parse JSON request bodies
+app.use(express.json());
+
+// Enable CORS
+app.use(cors());
 
 // Connect to MongoDB
 const connectToDatabase = async () => {
@@ -22,62 +27,100 @@ const connectToDatabase = async () => {
     console.log("Connected to MongoDB 🚀");
   } catch (error) {
     console.error("MongoDB connection error:", error.message);
-    process.exit(1); // Exit if unable to connect
+    process.exit(1); // Exit the process if unable to connect
   }
 };
 connectToDatabase();
 
 // ---------------------------------------------------------- Routes
+//  * Basic route to check if the server is running.
 app.get("/", (req, res) => {
   res.send("Server is running 🏃...");
 });
 
-// User Registration Route ---POST
+//  * User Registration Route (POST /register)
+//  * Handles user registration by:
+//  * - Checking if the username already exists.
+//  * - Hashing the password.
+//  * - Creating a new user in the database.
+//  * - Generating a JWT for the newly registered user.
 app.post("/register", async (req, res) => {
   const { username, email, password } = req.body;
   console.log("Registration attempt:", { username, email });
 
   try {
+    // Check if username already exists
     const existingUser = await User.findOne({ username });
     if (existingUser) {
       console.log("Registration failed: Username already exists");
       return res.status(400).json({ error: "Username already exists" });
     }
 
+    // Hash the password
     const hashedPassword = await bcrypt.hash(password, 10);
-    const newUser = new User({ username, email, password: hashedPassword });
 
+    // Create a new user
+    const newUser = new User({ username, email, password: hashedPassword });
     await newUser.save();
-    console.log("Registration successful for user:", username);
-    res
-      .status(201)
-      .json({ message: "User created successfully!", user: newUser });
+
+    // Generate JWT
+    const token = jwt.sign(
+      { id: newUser._id, username },
+      process.env.JWT_SECRET,
+      { expiresIn: "7d" }
+    );
+
+    console.log("Registration successful for user:", username, "JWT:", token);
+
+    // Respond with token and sanitized user data
+    res.status(201).json({
+      message: "User created successfully!",
+      token,
+      user: { id: newUser._id, username, email },
+    });
   } catch (error) {
     console.error("Error during registration:", error.message);
     res.status(500).json({ error: "Server error: " + error.message });
   }
 });
 
-// User Login Route --POST
+//  * User Login Route (POST /login)
+//  * Handles user login by:
+//  * - Checking if the username exists.
+//  * - Validating the password.
+//  * - Generating a JWT for the user upon successful login.
 app.post("/login", async (req, res) => {
   const { username, password } = req.body;
   console.log("Login attempt for username:", username);
 
   try {
+    // Find the user by username
     const user = await User.findOne({ username });
     if (!user) {
       console.log("Login failed: Invalid username");
       return res.status(400).json({ error: "Invalid username or password" });
     }
 
+    // Compare the password
     const isPasswordValid = await bcrypt.compare(password, user.password);
     if (!isPasswordValid) {
       console.log("Login failed: Invalid password for user:", username);
       return res.status(400).json({ error: "Invalid username or password" });
     }
 
-    console.log("Login successful for user:", username);
-    res.status(200).json({ message: "Login successful!", user });
+    // Generate JWT
+    const token = jwt.sign({ id: user._id, username }, process.env.JWT_SECRET, {
+      expiresIn: "7d",
+    });
+
+    console.log("Login successful for user:", username, "JWT:", token);
+
+    // Respond with token and sanitized user data
+    res.status(200).json({
+      message: "Login successful!",
+      token,
+      user: { id: user._id, username, email: user.email },
+    });
   } catch (error) {
     console.error("Error during login:", error.message);
     res.status(500).json({ error: "Server error: " + error.message });
@@ -85,12 +128,14 @@ app.post("/login", async (req, res) => {
 });
 
 // ---------------------------------------------------------- Error Handling Middleware
+//  * Error handling middleware for unexpected server errors.
 app.use((err, req, res, next) => {
   console.error(err.stack);
   res.status(500).send("Something broke!!!!");
 });
 
 // ---------------------------------------------------------- Start the Server
+//  * Start the server on the specified PORT.
 app.listen(PORT, () => {
-  console.log(`Server running on 🚢:http://localhost:${PORT}`);
+  console.log(`Server running on 🚢: http://localhost:${PORT}`);
 });
