@@ -3,11 +3,11 @@
   justify-content: center;
   align-items: center;
   height: 80vh;
-  color: #ffffff;
+  color: var(--white);
 }
 
 .form-container {
-  background: rgba(255, 255, 255, 0.1); /* Frosted glass effect */
+  background: var(--frosted-glass);
   backdrop-filter: blur(10px);
   padding: 30px;
   border-radius: 12px;
@@ -26,7 +26,7 @@ h2 {
 .toggle-btn {
   margin-top: 10px;
   font-size: 0.9rem;
-  color: #a6dcef; /* Soft blue */
+  color: var(--accent);
   background: none;
   border: none;
   text-decoration: underline;
@@ -34,6 +34,6 @@ h2 {
 }
 
 .toggle-btn:hover {
-  color: #ffffff;
+  color: var(--white);
   background-color: transparent;
 }
