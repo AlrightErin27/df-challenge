@@ -1,17 +1,39 @@
-/* Entry.css */
-
-html,
-body {
-  height: 100%;
-  margin: 0;
-  padding: 0;
-}
-
-#root {
-  height: 100%;
-}
-
 .entry-cont {
-  background-color: rgb(84, 100, 169);
-  height: 90vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 80vh;
+  color: #ffffff;
+}
+
+.form-container {
+  background: rgba(255, 255, 255, 0.1); /* Frosted glass effect */
+  backdrop-filter: blur(10px);
+  padding: 30px;
+  border-radius: 12px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+  width: 100%;
+  max-width: 400px;
+  text-align: center;
+}
+
+h2 {
+  font-family: "Poppins", sans-serif;
+  font-size: 1.8rem;
+  margin-bottom: 20px;
+}
+
+.toggle-btn {
+  margin-top: 10px;
+  font-size: 0.9rem;
+  color: #a6dcef; /* Soft blue */
+  background: none;
+  border: none;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.toggle-btn:hover {
+  color: #ffffff;
+  background-color: transparent;
 }

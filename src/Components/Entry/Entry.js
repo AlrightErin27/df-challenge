@@ -16,14 +16,14 @@ export default function Entry() {
         {showLogin ? (
           <>
             <LoginForm />
-            <button className="btn btn-link toggle-btn" onClick={toggleForm}>
+            <button className="toggle-btn" onClick={toggleForm}>
               Don't have an account? Register
             </button>
           </>
         ) : (
           <>
             <RegForm />
-            <button className="btn btn-link toggle-btn" onClick={toggleForm}>
+            <button className="toggle-btn" onClick={toggleForm}>
               Already have an account? Login
             </button>
           </>
