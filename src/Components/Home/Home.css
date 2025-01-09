@@ -34,7 +34,7 @@ body {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  align-items: center;
+  /* align-items: center; */
   background: var(--gradient-primary);
   color: var(--white);
   font-family: "Poppins", sans-serif;

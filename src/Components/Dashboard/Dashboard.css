@@ -1,5 +1,3 @@
-/* Dashboard.css */
-
 html,
 body {
   height: 100%;
@@ -12,6 +10,106 @@ body {
 }
 
 .dashboard-cont {
-  background-color: rgb(119, 130, 36);
-  height: 90vh;
+  height: 70vh;
+  color: var(--white);
+  font-family: "Poppins", sans-serif;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 40px;
+}
+
+.lists-cont {
+  width: 100%;
+  max-width: 1000px;
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+  text-align: center;
+  color: var(--white);
+  margin: 0 auto;
+  height: 100%;
+}
+
+.lists-cont h2 {
+  font-size: 1.8rem;
+  margin-bottom: 15px;
+}
+
+.lists-cont p {
+  font-size: 1rem;
+  margin-bottom: 15px;
+}
+
+.lists-cont ol {
+  text-align: left;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+.lists-cont li {
+  margin-bottom: 10px;
+}
+
+.create-list-cont,
+.view-single-list-cont {
+  width: 100%;
+  max-width: 800px;
+  background: var(--frosted-glass);
+  backdrop-filter: blur(10px);
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+  color: var(--white);
+  text-align: center;
+}
+
+.create-list-cont {
+  font-size: 1.2rem;
+  font-weight: bold;
+}
+
+.view-single-list-cont {
+  text-align: left;
+}
+
+.view-single-list-cont ol {
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+.view-single-list-cont button {
+  margin-top: 15px;
+  padding: 10px 15px;
+  background: var(--accent);
+  color: var(--dark-teal);
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.view-single-list-cont button:hover {
+  background: var(--white);
+  color: var(--dark-teal);
+}
+
+.custom-btn {
+  width: 250px;
+  padding: 10px 15px;
+  background: var(--accent);
+  color: var(--dark-teal);
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: bold;
+  font-size: 1rem;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.custom-btn:hover {
+  background: var(--white);
+  color: var(--dark-teal);
 }

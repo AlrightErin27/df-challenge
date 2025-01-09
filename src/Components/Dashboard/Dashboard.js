@@ -1,16 +1,53 @@
-import React from "react";
+import { useState } from "react";
 import "./Dashboard.css";
 import Lists from "./Lists";
+import CreateList from "./CreateList";
+import ViewSingleList from "./ViewSingleList";
 
 export default function Dashboard() {
+  const [currentLocal, setCurrentLocal] = useState("");
+
+  // function viewSelList(listId) {
+  //   //nav path to /dashboard/view-list
+  //   console.log("Viewing list:", listId);
+  //   setCurrentLocal("view-list");
+  // }
+
+  function handleNewList() {
+    //nav path to /dashboard/create-list
+    console.log("create a new list");
+    setCurrentLocal("create-list");
+  }
+
+  function handleLogOut() {
+    //nav path to /
+    console.log("logging out");
+  }
+
+  function handleDashView() {
+    if (currentLocal === "") {
+      return (
+        <div>
+          <Lists />
+          <button className="custom-btn" onClick={() => handleNewList()}>
+            Create New List
+          </button>
+        </div>
+      );
+    } else if (currentLocal === "create-list") {
+      return <CreateList />;
+    } else if (currentLocal === "view-list") {
+      return <ViewSingleList />;
+    }
+  }
   return (
     <div className="dashboard-cont">
       <div className="container text-center">
-        <h2>Your To-Do Lists</h2>
-        <p>Here are your current to-do lists:</p>
-        <Lists />
-        <button className="btn btn-danger mt-3">Create New List</button>
-        <button className="btn btn-danger mt-3">Logout</button>
+        {handleDashView()}
+
+        <button className="custom-btn" onClick={() => handleLogOut()}>
+          Logout
+        </button>
       </div>
     </div>
   );
