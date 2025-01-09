@@ -5,7 +5,7 @@ import Entry from "../Entry/Entry";
 import Dashboard from "../Dashboard/Dashboard";
 
 export default function Home() {
-  const [isLoggedIn, setIsLoggedIn] = useState(true);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
   const navigate = useNavigate();
   const location = useLocation();
 
