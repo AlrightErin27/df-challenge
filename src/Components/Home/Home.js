@@ -1,6 +1,31 @@
 import "./Home.css";
+import { useState, useEffect } from "react";
+import { useNavigate, useLocation } from "react-router-dom";
+import Entry from "../Entry/Entry";
+import Dashboard from "../Dashboard/Dashboard";
 
-export default function Home({ children }) {
+export default function Home() {
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const navigate = useNavigate();
+  const location = useLocation();
+
+  const handleLogin = () => {
+    setIsLoggedIn(true);
+  };
+
+  const handleLogout = () => {
+    setIsLoggedIn(false);
+  };
+
+  // Update the path based on isLoggedIn
+  useEffect(() => {
+    if (isLoggedIn && location.pathname !== "/dashboard") {
+      navigate("/dashboard");
+    } else if (!isLoggedIn && location.pathname !== "/") {
+      navigate("/");
+    }
+  }, [isLoggedIn, navigate, location.pathname]);
+
   return (
     <div className="home-cont">
       <div className="container text-center py-4">
@@ -10,7 +35,7 @@ export default function Home({ children }) {
         </div>
 
         <div className="content-container p-4 bg-transparent border rounded-3 shadow">
-          {children}
+          {!isLoggedIn ? <Entry /> : <Dashboard />}
         </div>
 
         <footer className="mt-4">
