@@ -1,5 +1,7 @@
 const mongoose = require("mongoose");
 
+//each user has a USERNAME, PS, EMAIL, LISTS (lists connects to another SCHEMA)
+
 const UserSchema = new mongoose.Schema({
   username: {
     type: String,
@@ -12,7 +14,7 @@ const UserSchema = new mongoose.Schema({
     required: true,
     unique: true,
     match: [/.+@.+\..+/, "Please enter a valid email address"],
-    //     At least one character before the @:
+    // At least one character before the @:
     // .+ ensures there is at least one character before the @.
     // At least one character after the @ and before the .:
     // The second .+ ensures there is at least one character between the @ and the ..
@@ -24,6 +26,12 @@ const UserSchema = new mongoose.Schema({
     required: true,
     minlength: 3,
   },
+  lists: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "List",
+    },
+  ],
 });
 
 module.exports = mongoose.model("User", UserSchema);

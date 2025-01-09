@@ -82,3 +82,20 @@ Good luck and happy coding!
 ## Erin's Notes:
 
 Start front and backend at same time: npm run start-all
+
+## DB NOTES
+
+### SCHEMA: User: 1. username, 2. email, 3. password, 4. lists
+
+### SCHEMA: Lists: 1. title, 2. date created, 3. items (has text and boolean user turns true (checked off) if user t has completed item ), 4. checkedList (boolean true if all list's items are checked off)
+
+{
+"title": "Garage Sale",
+"createdAt": "2024-02-02T00:00:00.000Z",
+"items": [
+{ "text": "sweep floor", "checkedItem": false },
+{ "text": "seal boxes", "checkedItem": true },
+{ "text": "make sign", "checkedItem": true }
+],
+"checkedList": false
+}
