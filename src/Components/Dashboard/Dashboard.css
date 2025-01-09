@@ -10,7 +10,7 @@ body {
 }
 
 .dashboard-cont {
-  height: 100%;
+  height: 60vh;
   color: var(--white);
   font-family: "Poppins", sans-serif;
   display: flex;

@@ -12,15 +12,14 @@ import ViewSingleList from "./Components/Dashboard/ViewSingleList";
 function App() {
   return (
     <Router>
-      <Home>
-        <Routes>
-          <Route path="/" element={<Entry />} />
-          <Route path="/dashboard" element={<Dashboard />}>
-            <Route path="/dashboard/create-list" element={<CreateList />} />
-            <Route path="/dashboard/view-list" element={<ViewSingleList />} />
-          </Route>
-        </Routes>
-      </Home>
+      <Routes>
+        <Route path="/" element={<Home />}>
+          <Route index element={<Entry />} />
+          <Route path="dashboard" element={<Dashboard />} />
+          <Route path="dashboard/create-list" element={<CreateList />} />
+          <Route path="dashboard/view-list" element={<ViewSingleList />} />
+        </Route>
+      </Routes>
     </Router>
   );
 }

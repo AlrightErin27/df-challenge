@@ -1,20 +1,23 @@
-import { useState } from "react";
+import { useNavigate, useLocation, Outlet } from "react-router-dom";
 import "./Dashboard.css";
 import Lists from "./Lists";
 import CreateList from "./CreateList";
 import ViewSingleList from "./ViewSingleList";
 
 export default function Dashboard({ handleLogout }) {
-  const [currentLocal, setCurrentLocal] = useState("");
+  const navigate = useNavigate();
+  const location = useLocation();
+  console.log("Current location:", location);
 
   function handleNewList() {
-    // Change view to create list
-    console.log("create a new list");
-    setCurrentLocal("create-list");
+    console.log("handleNewList clicked");
+    console.log("About to navigate to:", "/dashboard/create-list");
+    navigate("/dashboard/create-list");
+    console.log("Navigation completed");
   }
-
+  // Function to handle rendering views based on URL path
   function handleDashView() {
-    if (currentLocal === "") {
+    if (location.pathname === "/dashboard") {
       return (
         <div>
           <Lists />
@@ -23,22 +26,19 @@ export default function Dashboard({ handleLogout }) {
           </button>
         </div>
       );
-    } else if (currentLocal === "create-list") {
-      return <CreateList />;
-    } else if (currentLocal === "view-list") {
-      return <ViewSingleList />;
     }
+    return <Outlet />;
   }
 
   return (
     <div className="dashboard-cont">
       <div className="container text-center">
         {handleDashView()}
-        {currentLocal !== "" ? (
-          <button className="custom-btn" onClick={() => setCurrentLocal("")}>
+        {location.pathname !== "/dashboard" && (
+          <button className="custom-btn" onClick={() => navigate("/dashboard")}>
             Back
           </button>
-        ) : null}
+        )}
         <button className="custom-btn" onClick={() => handleLogout()}>
           Logout
         </button>

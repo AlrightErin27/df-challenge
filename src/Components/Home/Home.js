@@ -32,13 +32,12 @@ export default function Home() {
 
   // Redirects user based on login state
   useEffect(() => {
-    if (isLoggedIn && location.pathname !== "/dashboard") {
-      navigate("/dashboard"); // Go to dashboard if logged in
+    if (isLoggedIn && !location.pathname.startsWith("/dashboard")) {
+      navigate("/dashboard");
     } else if (!isLoggedIn && location.pathname !== "/") {
-      navigate("/"); // Go to entry page if logged out
+      navigate("/");
     }
-  }, [isLoggedIn, navigate, location.pathname]); // Runs whenever isLoggedIn or path changes
-
+  }, [isLoggedIn, navigate, location.pathname]);
   return (
     <div className="home-cont">
       <div className="container text-center py-4">
