@@ -7,21 +7,10 @@ import ViewSingleList from "./ViewSingleList";
 export default function Dashboard({ handleLogout }) {
   const [currentLocal, setCurrentLocal] = useState("");
 
-  // function viewSelList(listId) {
-  //   //nav path to /dashboard/view-list
-  //   console.log("Viewing list:", listId);
-  //   setCurrentLocal("view-list");
-  // }
-
   function handleNewList() {
-    //nav path to /dashboard/create-list
+    // Change view to create list
     console.log("create a new list");
     setCurrentLocal("create-list");
-  }
-
-  function handleLogOut() {
-    //nav path to /
-    console.log("logging out");
   }
 
   function handleDashView() {
@@ -40,11 +29,16 @@ export default function Dashboard({ handleLogout }) {
       return <ViewSingleList />;
     }
   }
+
   return (
     <div className="dashboard-cont">
       <div className="container text-center">
         {handleDashView()}
-
+        {currentLocal !== "" ? (
+          <button className="custom-btn" onClick={() => setCurrentLocal("")}>
+            Back
+          </button>
+        ) : null}
         <button className="custom-btn" onClick={() => handleLogout()}>
           Logout
         </button>

@@ -1,0 +1,95 @@
+/* Centering the create-list container */
+.create-list-cont {
+  background: var(--frosted-glass);
+  backdrop-filter: blur(10px);
+  padding: 20px;
+  border-radius: 12px;
+  width: 60%;
+  height: 50vh;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+  color: var(--white);
+  font-family: "Poppins", sans-serif;
+}
+
+/* Input row styling */
+.input-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 15px;
+}
+
+.input-row span {
+  font-size: 20px;
+}
+
+.input-row input {
+  width: 66%;
+  padding: 10px;
+  font-size: 1rem;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.1);
+  color: var(--white);
+}
+
+/* Buttons */
+.add-item-btn,
+.remove-item-btn {
+  width: 40px;
+  height: 40px;
+  border-radius: 14px;
+  font-size: 1.5rem;
+  font-weight: bold;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.add-item-btn {
+  background: var(--softer-accent);
+  color: var(--dark-teal);
+}
+
+.add-item-btn:hover {
+  background: var(--white);
+  color: var(--dark-teal);
+}
+
+.remove-item-btn {
+  background: var(--softer-accent);
+  color: var(--dark-teal);
+}
+
+.remove-item-btn:hover {
+  background: var(--white);
+  color: var(--danger);
+}
+
+/* List styling */
+ol {
+  margin: 0 auto;
+  padding: 0;
+  list-style-type: none;
+}
+
+.list-item {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+  min-width: 30%;
+  max-width: fit-content;
+}
+
+.list-item span {
+  font-size: 20px;
+  margin-right: 5px;
+}
+
+.list-item p {
+  margin: 0;
+  padding: 0;
+  color: var(--white);
+  flex: 1;
+}
