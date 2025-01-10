@@ -262,6 +262,36 @@ app.get("/api/lists/:listId", async (req, res) => {
   }
 });
 
+//DELETE
+app.delete("/api/lists/:listId", async (req, res) => {
+  try {
+    const token = req.headers.authorization?.split(" ")[1];
+    if (!token) {
+      return res.status(401).json({ error: "No token provided" });
+    }
+
+    const decoded = jwt.verify(token, process.env.JWT_SECRET);
+    const userId = decoded.id;
+
+    const list = await List.findOneAndDelete({
+      _id: req.params.listId,
+      userId,
+    });
+
+    if (!list) {
+      return res.status(404).json({ error: "List not found" });
+    }
+
+    console.log(
+      `List ${req.params.listId} deleted by user: ${decoded.username}`
+    );
+    res.json({ message: "List deleted successfully" });
+  } catch (error) {
+    console.error("Error deleting list:", error);
+    res.status(500).json({ error: "Error deleting list" });
+  }
+});
+
 // ---------------------------------------------------------- Error Handling Middleware
 //  * Error handling middleware for unexpected server errors.
 app.use((err, req, res, next) => {

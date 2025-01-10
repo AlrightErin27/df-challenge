@@ -8,7 +8,6 @@ export default function ViewSingleList() {
   const [currentList, setCurrentList] = useState(location.state?.list);
   const { refreshLists } = useOutletContext();
 
-  // Fetch fresh list data when component mounts
   useEffect(() => {
     const fetchCurrentList = async () => {
       try {
@@ -68,6 +67,27 @@ export default function ViewSingleList() {
     }
   };
 
+  const handleDelete = async () => {
+    try {
+      const token = localStorage.getItem("token");
+      const response = await fetch(`/api/lists/${currentList._id}`, {
+        method: "DELETE",
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      if (response.ok) {
+        refreshLists();
+        navigate("/dashboard");
+      } else {
+        console.error("Failed to delete list");
+      }
+    } catch (error) {
+      console.error("Error deleting list:", error);
+    }
+  };
+
   return (
     <div className="view-single-list-cont container">
       <div className="text-center mb-4">
@@ -103,15 +123,20 @@ export default function ViewSingleList() {
         </ol>
       </div>
 
-      <button
-        className="back-to-lists-btn mt-4"
-        onClick={() => {
-          refreshLists();
-          navigate("/dashboard");
-        }}
-      >
-        Back to Lists
-      </button>
+      <div className="d-flex justify-content-center gap-3">
+        <button
+          className="back-to-lists-btn mt-4"
+          onClick={() => {
+            refreshLists();
+            navigate("/dashboard");
+          }}
+        >
+          Back to Lists
+        </button>
+        <button className="delete-list-btn mt-4" onClick={handleDelete}>
+          Delete List
+        </button>
+      </div>
     </div>
   );
 }

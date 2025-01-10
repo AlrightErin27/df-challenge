@@ -76,24 +76,17 @@
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
 }
 
-/* OPTIONAL CROSSOUT - Commented Out */
-/* .item-checked { */
-/* text-decoration: line-through; */
-/* color: var(--softer-accent); */
-/* } */
-
 .item-unchecked {
   text-decoration: none;
   color: var(--white);
 }
 
-.back-to-lists-btn {
+.back-to-lists-btn,
+.delete-list-btn {
   width: 100%;
   max-width: 250px;
   margin: 20px auto 0;
   padding: 10px 15px;
-  background: var(--accent);
-  color: var(--dark-teal);
   border: none;
   border-radius: 8px;
   cursor: pointer;
@@ -102,10 +95,28 @@
   transition: background-color 0.3s ease, transform 0.2s ease;
 }
 
+.back-to-lists-btn {
+  background: var(--accent);
+  color: var(--dark-teal);
+}
+
+.delete-list-btn {
+  background: #dc3545;
+  color: var(--white);
+}
+
+.back-to-lists-btn:hover,
+.delete-list-btn:hover {
+  transform: scale(1.05);
+}
+
 .back-to-lists-btn:hover {
   background: var(--white);
   color: var(--dark-teal);
-  transform: scale(1.05);
+}
+
+.delete-list-btn:hover {
+  background: #bb2d3b;
 }
 
 /* Media Queries for Responsiveness */
@@ -129,7 +140,8 @@
     padding: 8px 12px;
   }
 
-  .back-to-lists-btn {
+  .back-to-lists-btn,
+  .delete-list-btn {
     max-width: 100%;
     font-size: clamp(0.9rem, 1.2vw, 1rem);
   }
@@ -155,7 +167,8 @@
     padding: 6px 10px;
   }
 
-  .back-to-lists-btn {
+  .back-to-lists-btn,
+  .delete-list-btn {
     font-size: clamp(0.8rem, 1rem, 0.9rem);
     padding: 8px 12px;
   }
