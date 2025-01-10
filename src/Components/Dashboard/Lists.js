@@ -1,6 +1,6 @@
 import "./List.css";
 
-export default function Lists({ lists, error }) {
+export default function Lists({ lists, error, onListClick }) {
   const formatDate = (dateString) => {
     const date = new Date(dateString);
     return date.toLocaleDateString("en-US", {
@@ -26,6 +26,7 @@ export default function Lists({ lists, error }) {
               <li
                 key={list._id}
                 className="list-group-item d-flex justify-content-between align-items-center text-white"
+                onClick={() => onListClick(list)}
               >
                 <div className="ms-2 me-auto">
                   <div className="fw-bold">

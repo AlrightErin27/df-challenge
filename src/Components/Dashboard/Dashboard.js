@@ -8,6 +8,13 @@ export default function Dashboard({ handleLogout }) {
   const location = useLocation();
   const [lists, setLists] = useState([]);
   const [error, setError] = useState("");
+  // const [selectedList, setSelectedList] = useState(null);
+
+  const handleListClick = (list) => {
+    // setSelectedList(list);
+    console.log("clicked list: ", list.title);
+    navigate("/dashboard/view-list", { state: { list } });
+  };
 
   // Fetch lists function
   const fetchLists = async () => {
@@ -45,7 +52,7 @@ export default function Dashboard({ handleLogout }) {
     if (location.pathname === "/dashboard") {
       return (
         <div>
-          <Lists lists={lists} error={error} />
+          <Lists lists={lists} error={error} onListClick={handleListClick} />
           <button className="custom-btn" onClick={() => handleNewList()}>
             Create New List
           </button>
