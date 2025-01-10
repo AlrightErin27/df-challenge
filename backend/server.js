@@ -23,13 +23,28 @@ app.use(express.json());
 app.use(cors());
 
 // Connect to MongoDB
+// const connectToDatabase = async () => {
+//   try {
+//     await mongoose.connect(process.env.MONGO_URI);
+//     console.log("Connected to MongoDB 🚀");
+//   } catch (error) {
+//     console.error("MongoDB connection error:", error.message);
+//     process.exit(1); // Exit the process if unable to connect
+//   }
+// };
+
 const connectToDatabase = async () => {
   try {
-    await mongoose.connect(process.env.MONGO_URI);
+    const mongoURI =
+      process.env.NODE_ENV === "test"
+        ? "mongodb://localhost:27017/clarity-test" //for jest test
+        : process.env.MONGO_URI;
+
+    await mongoose.connect(mongoURI);
     console.log("Connected to MongoDB 🚀");
   } catch (error) {
     console.error("MongoDB connection error:", error.message);
-    process.exit(1); // Exit the process if unable to connect
+    process.exit(1);
   }
 };
 connectToDatabase();
@@ -305,3 +320,6 @@ app.use((err, req, res, next) => {
 app.listen(PORT, () => {
   console.log(`Server running on 🚢: http://localhost:${PORT}`);
 });
+
+// Added for jest testing
+module.exports = app;
