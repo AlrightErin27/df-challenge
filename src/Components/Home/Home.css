@@ -31,6 +31,7 @@ body {
 
 .home-cont {
   height: 100vh;
+  min-height: fit-content;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -38,6 +39,7 @@ body {
   color: var(--white);
   font-family: "Poppins", sans-serif;
   padding: 0 0;
+  overflow: hidden;
 }
 
 .header-container {
@@ -47,10 +49,12 @@ body {
 
 .header-container h1 {
   font-family: "Lexend Zetta", serif;
+  font-size: clamp(2.5rem, 5vw, 4rem);
 }
 
 .text-light {
   color: var(--accent) !important;
+  font-size: clamp(1.2rem, 3vw, 1.5rem);
 }
 
 .content-container {
@@ -64,10 +68,13 @@ body {
   border-radius: 12px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
   margin: 0 20px;
+  max-width: 1200px;
+  box-sizing: border-box;
+  overflow: hidden;
 }
 
 footer {
-  font-size: 0.9rem;
+  font-size: clamp(0.7rem, 2vw, 1rem);
   color: var(--dark-teal);
   text-align: center;
   margin-top: auto;
@@ -88,4 +95,16 @@ footer::before {
   backdrop-filter: blur(100px);
   z-index: 1;
   pointer-events: none;
+}
+
+/* Media Queries  */
+@media (max-width: 768px) {
+  .header-container h1 {
+    font-size: clamp(1.8rem, 4vw, 3rem); /* Smaller font on smaller screens */
+  }
+
+  .content-container {
+    margin: 0 10px; /* Reduce margins for smaller screens */
+    padding: 20px; /* Ensure padding adapts */
+  }
 }
