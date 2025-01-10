@@ -84,16 +84,21 @@
 
 ol {
   margin: 0 auto;
-  padding: 0;
+  padding: 15px;
   list-style-type: none;
+  background: var(--frosted-glass);
+  backdrop-filter: blur(10px);
+  border-radius: 12px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.2);
 }
 
 .list-item {
   display: flex;
   align-items: center;
   margin-bottom: 10px;
+  padding: 5px 10px;
   border-radius: 8px;
-  padding: 8px 10px;
   background: rgba(255, 255, 255, 0.1);
   transition: background-color 0.3s ease, box-shadow 0.3s ease;
 }
@@ -115,6 +120,7 @@ ol {
   flex: 1;
 }
 
+/* Finish Button */
 .create-list-btn {
   margin: 20px 0;
   width: 100%;
@@ -131,4 +137,56 @@ ol {
 .create-list-btn:hover {
   background: var(--white);
   color: var(--dark-teal);
+}
+
+/* Media Queries for Responsiveness */
+@media (max-width: 768px) {
+  .create-list-cont {
+    width: 90%;
+    padding: 20px;
+  }
+
+  .title-input {
+    font-size: 1.3rem;
+    padding: 10px;
+  }
+
+  .add-item-input {
+    font-size: 0.9rem;
+    padding: 8px;
+  }
+
+  .add-item-btn,
+  .remove-item-btn {
+    width: 28px;
+    height: 28px;
+    font-size: 1rem;
+  }
+
+  .create-list-btn {
+    max-width: 100%;
+  }
+}
+
+@media (max-width: 480px) {
+  .create-list-cont {
+    padding: 15px;
+    border-radius: 12px;
+  }
+
+  .title-input {
+    font-size: 1.2rem;
+    padding: 8px;
+  }
+
+  .add-item-input {
+    font-size: 0.8rem;
+  }
+
+  .add-item-btn,
+  .remove-item-btn {
+    width: 24px;
+    height: 24px;
+    font-size: 0.9rem;
+  }
 }
