@@ -1,4 +1,4 @@
-import { useLocation, useNavigate } from "react-router-dom";
+import { useLocation, useNavigate, useOutletContext } from "react-router-dom";
 import "./ViewSingleList.css";
 import { useState, useEffect } from "react";
 
@@ -6,6 +6,7 @@ export default function ViewSingleList() {
   const location = useLocation();
   const navigate = useNavigate();
   const [currentList, setCurrentList] = useState(location.state?.list);
+  const { refreshLists } = useOutletContext();
 
   // Add this useEffect to fetch fresh list data when component mounts
   useEffect(() => {
@@ -106,7 +107,10 @@ export default function ViewSingleList() {
 
       <button
         className="custom-btn mt-4"
-        onClick={() => navigate("/dashboard")}
+        onClick={() => {
+          refreshLists();
+          navigate("/dashboard");
+        }}
       >
         Back to Lists
       </button>
