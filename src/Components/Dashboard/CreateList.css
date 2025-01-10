@@ -1,50 +1,63 @@
-/* Centering the create-list container */
 .create-list-cont {
   background: var(--frosted-glass);
   backdrop-filter: blur(10px);
-  padding: 20px;
-  border-radius: 12px;
+  padding: 30px;
+  border-radius: 16px;
   width: 60%;
-  height: 50vh;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+  max-width: 800px;
+  height: auto;
+  box-shadow: 0 6px 10px rgba(0, 0, 0, 0.2);
   color: var(--white);
   font-family: "Poppins", sans-serif;
 }
 
-/* Input row styling */
-.input-row {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  margin-bottom: 15px;
+.title-input {
+  font-family: "Lexend Zetta", serif;
+  font-size: 1.5rem;
+  padding: 12px;
+  background: rgba(255, 255, 255, 0.1);
+  color: var(--white);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: 10px;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
 }
 
-.input-row span {
-  font-size: 20px;
+.title-input:focus {
+  border-color: var(--accent);
+  box-shadow: 0 0 5px var(--accent);
+  outline: none;
 }
 
-.input-row input {
-  width: 66%;
+/* Add Item Input */
+.add-item-input {
   padding: 10px;
+  margin-bottom: 5px;
   font-size: 1rem;
   border: 1px solid rgba(255, 255, 255, 0.3);
   border-radius: 8px;
   background: rgba(255, 255, 255, 0.1);
   color: var(--white);
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
 }
 
-/* Buttons */
+.add-item-input:focus {
+  border-color: var(--accent);
+  box-shadow: 0 0 5px var(--accent);
+  outline: none;
+}
+
 .add-item-btn,
 .remove-item-btn {
-  width: 40px;
-  height: 40px;
-  border-radius: 14px;
-  font-size: 1.5rem;
+  width: 30px;
+  height: 30px;
+  border-radius: 10%;
+  font-size: 1.2rem;
   font-weight: bold;
   text-align: center;
   display: flex;
   justify-content: center;
   align-items: center;
+  transition: transform 0.2s ease, background-color 0.3s ease;
 }
 
 .add-item-btn {
@@ -55,6 +68,7 @@
 .add-item-btn:hover {
   background: var(--white);
   color: var(--dark-teal);
+  transform: scale(1.1);
 }
 
 .remove-item-btn {
@@ -65,9 +79,9 @@
 .remove-item-btn:hover {
   background: var(--white);
   color: var(--danger);
+  transform: scale(1.1);
 }
 
-/* List styling */
 ol {
   margin: 0 auto;
   padding: 0;
@@ -78,13 +92,20 @@ ol {
   display: flex;
   align-items: center;
   margin-bottom: 10px;
-  min-width: 30%;
-  max-width: fit-content;
+  border-radius: 8px;
+  padding: 8px 10px;
+  background: rgba(255, 255, 255, 0.1);
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.list-item:hover {
+  background-color: rgba(255, 255, 255, 0.2);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
 }
 
 .list-item span {
   font-size: 20px;
-  margin-right: 5px;
+  margin-right: 8px;
 }
 
 .list-item p {
@@ -92,4 +113,22 @@ ol {
   padding: 0;
   color: var(--white);
   flex: 1;
+}
+
+.create-list-btn {
+  margin: 20px 0;
+  width: 100%;
+  max-width: 300px;
+  background: var(--accent);
+  color: var(--dark-teal);
+  border: none;
+  border-radius: 10px;
+  font-size: 1.1rem;
+  font-weight: bold;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.create-list-btn:hover {
+  background: var(--white);
+  color: var(--dark-teal);
 }

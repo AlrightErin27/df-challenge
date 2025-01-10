@@ -64,7 +64,7 @@ export default function CreateList() {
       const data = await response.json();
       if (response.ok) {
         console.log("List created successfully");
-        await refreshLists(); //refresh dashboard to reveal newly created list
+        await refreshLists(); // refresh dashboard to reveal newly created list
         navigate("/dashboard");
       } else {
         setMessage(data.error || "Failed to create list");
@@ -83,7 +83,7 @@ export default function CreateList() {
         <div className="mb-3">
           <input
             type="text"
-            className="form-control"
+            className="form-control title-input"
             placeholder="List Title"
             value={title}
             onChange={(e) => setTitle(e.target.value)}
@@ -95,7 +95,7 @@ export default function CreateList() {
           <span className="me-2">•</span>
           <input
             type="text"
-            className="form-control flex-grow-1 me-2"
+            className="form-control add-item-input flex-grow-1 me-2"
             placeholder="Add an item"
             value={itemInput}
             onChange={(e) => setItemInput(e.target.value)}
@@ -125,7 +125,7 @@ export default function CreateList() {
           ))}
         </ol>
 
-        <button type="submit" className="custom-btn mt-4">
+        <button type="submit" className="btn btn-primary create-list-btn mt-4">
           Finish
         </button>
       </form>
