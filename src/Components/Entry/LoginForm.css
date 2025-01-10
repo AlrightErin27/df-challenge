@@ -2,6 +2,10 @@
   font-family: "Poppins", sans-serif;
 }
 
+.login-form-cont h2 {
+  font-family: "DM Serif Text", serif;
+}
+
 label {
   text-align: left;
   display: block;

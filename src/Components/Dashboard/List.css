@@ -69,6 +69,7 @@
 
 .list-group-item small {
   font-family: "Poppins", sans-serif;
+
   font-size: clamp(1rem, 1vw, 0.9rem);
   color: var(--softer-accent);
 }

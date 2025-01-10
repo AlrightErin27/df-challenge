@@ -9,28 +9,20 @@ export default function Home() {
   const navigate = useNavigate();
   const location = useLocation();
 
-  // Called when a user logs in or registers
   const handleLogin = () => {
-    const token = localStorage.getItem("token"); // Check for the token in localStorage
-    if (token) {
-      setIsLoggedIn(true); // Set login state to true if token exists
-    } else {
-      setIsLoggedIn(false); // Ensure state is false if no token
-    }
+    const token = localStorage.getItem("token");
+    setIsLoggedIn(!!token);
   };
 
-  // Called when a user logs out
   const handleLogout = () => {
-    localStorage.removeItem("token"); // Remove the JWT
-    setIsLoggedIn(false); // Set login state to false
+    localStorage.removeItem("token");
+    setIsLoggedIn(false);
   };
 
-  // Check for token on initial load
   useEffect(() => {
-    handleLogin(); // Call handleLogin to verify token on app load
-  }, []); // Only runs once on initial render
+    handleLogin();
+  }, []);
 
-  // Redirects user based on login state
   useEffect(() => {
     if (isLoggedIn && !location.pathname.startsWith("/dashboard")) {
       navigate("/dashboard");
@@ -38,6 +30,7 @@ export default function Home() {
       navigate("/");
     }
   }, [isLoggedIn, navigate, location.pathname]);
+
   return (
     <div className="home-cont">
       <div className="container text-center py-4">
@@ -48,12 +41,13 @@ export default function Home() {
 
         <div className="content-container p-4 bg-transparent border rounded-3 shadow">
           {!isLoggedIn ? (
-            <Entry handleLogin={handleLogin} /> // Pass handleLogin to Entry
+            <Entry handleLogin={handleLogin} />
           ) : (
-            <Dashboard handleLogout={handleLogout} /> // Pass handleLogout to Dashboard
+            <Dashboard handleLogout={handleLogout} />
           )}
         </div>
       </div>
+
       <footer className="mt-4">
         <p>
           Built for simplicity, powered by Clarity

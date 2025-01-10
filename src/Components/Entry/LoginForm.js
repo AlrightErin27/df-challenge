@@ -40,7 +40,7 @@ export default function LoginForm({ handleLogin }) {
 
   return (
     <div className="login-form-cont">
-      <h2>Login</h2>
+      <h2>Welcome</h2>
       <form onSubmit={handleLoginSubmit}>
         <label htmlFor="username">Username</label>
         <input
