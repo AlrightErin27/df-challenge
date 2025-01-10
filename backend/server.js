@@ -190,6 +190,78 @@ app.post("/api/lists", async (req, res) => {
   }
 });
 
+// PATCH find list item and alter it
+// In the existing route, we already have this logic but it needs a small fix
+// In the existing route, we already have this logic but it needs a small fix
+app.patch("/api/lists/:listId/items/:itemId", async (req, res) => {
+  try {
+    const token = req.headers.authorization?.split(" ")[1];
+    if (!token) {
+      return res.status(401).json({ error: "No token provided" });
+    }
+
+    const decoded = jwt.verify(token, process.env.JWT_SECRET);
+    const userId = decoded.id;
+
+    // Find the list and update the specific item
+    const list = await List.findOneAndUpdate(
+      {
+        _id: req.params.listId,
+        userId,
+        "items._id": req.params.itemId,
+      },
+      {
+        $set: { "items.$.checkedItem": req.body.checkedItem },
+      },
+      { new: true }
+    );
+
+    if (!list) {
+      return res.status(404).json({ error: "List or item not found" });
+    }
+
+    // Check if all items are checked and update list status
+    const allItemsChecked = list.items.every((item) => item.checkedItem);
+    list.checkedList = allItemsChecked;
+    await list.save(); // Make sure this save happens
+
+    console.log(
+      `Item ${req.params.itemId} in list ${req.params.listId} updated. CheckedItem: ${req.body.checkedItem}`
+    );
+    console.log(
+      `List ${req.params.listId} checkedList status updated to: ${allItemsChecked}`
+    ); // Add this log
+
+    res.json(list);
+  } catch (error) {
+    console.error("Error updating item:", error);
+    res.status(500).json({ error: "Error updating item" });
+  }
+});
+
+app.get("/api/lists/:listId", async (req, res) => {
+  try {
+    const token = req.headers.authorization?.split(" ")[1];
+    if (!token) {
+      return res.status(401).json({ error: "No token provided" });
+    }
+
+    const decoded = jwt.verify(token, process.env.JWT_SECRET);
+    const userId = decoded.id;
+
+    const list = await List.findOne({ _id: req.params.listId, userId });
+
+    if (!list) {
+      return res.status(404).json({ error: "List not found" });
+    }
+
+    res.json(list);
+  } catch (error) {
+    console.error("Error fetching list:", error);
+    res.status(500).json({ error: "Error fetching list" });
+  }
+});
+
 // ---------------------------------------------------------- Error Handling Middleware
 //  * Error handling middleware for unexpected server errors.
 app.use((err, req, res, next) => {
