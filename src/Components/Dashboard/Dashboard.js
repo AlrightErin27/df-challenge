@@ -1,4 +1,5 @@
 import { useNavigate, useLocation, Outlet } from "react-router-dom";
+import { useState, useEffect } from "react";
 import "./Dashboard.css";
 import Lists from "./Lists";
 import CreateList from "./CreateList";
@@ -7,20 +8,45 @@ import ViewSingleList from "./ViewSingleList";
 export default function Dashboard({ handleLogout }) {
   const navigate = useNavigate();
   const location = useLocation();
-  // console.log("Current location:", location);
+  const [lists, setLists] = useState([]);
+  const [error, setError] = useState("");
+
+  // Fetch lists when component mounts
+  useEffect(() => {
+    const fetchLists = async () => {
+      try {
+        const token = localStorage.getItem("token");
+        const response = await fetch("/api/lists", {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+
+        if (response.ok) {
+          const data = await response.json();
+          setLists(data);
+        } else {
+          setError("Failed to fetch lists");
+        }
+      } catch (error) {
+        console.error("Error fetching lists:", error);
+        setError("Failed to fetch lists");
+      }
+    };
+
+    fetchLists();
+  }, []);
 
   function handleNewList() {
-    // console.log("handleNewList clicked");
-    // console.log("About to navigate to:", "/dashboard/create-list");
+    console.log("handleNewList clicked");
     navigate("/dashboard/create-list");
-    // console.log("Navigation completed");
   }
-  // Function to handle rendering views based on URL path
+
   function handleDashView() {
     if (location.pathname === "/dashboard") {
       return (
         <div>
-          <Lists />
+          <Lists lists={lists} error={error} />
           <button className="custom-btn" onClick={() => handleNewList()}>
             Create New List
           </button>

@@ -128,6 +128,26 @@ app.post("/login", async (req, res) => {
   }
 });
 
+// GET lists for logged in user, display in dashboard
+app.get("/api/lists", async (req, res) => {
+  try {
+    const token = req.headers.authorization?.split(" ")[1];
+    if (!token) {
+      return res.status(401).json({ error: "No token provided" });
+    }
+
+    const decoded = jwt.verify(token, process.env.JWT_SECRET);
+    const userId = decoded.id;
+
+    const lists = await List.find({ userId }).sort({ createdAt: -1 }); // Sort by newest first
+    console.log(`Retrieved ${lists.length} lists for user:`, decoded.username);
+    res.json(lists);
+  } catch (error) {
+    console.error("Error fetching lists:", error);
+    res.status(500).json({ error: "Error fetching lists" });
+  }
+});
+
 //  * Create List Route (POST /lists)
 app.post("/api/lists", async (req, res) => {
   try {
