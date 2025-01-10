@@ -9,6 +9,15 @@
   box-shadow: 0 6px 10px rgba(0, 0, 0, 0.2);
   color: var(--white);
   font-family: "Poppins", sans-serif;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  width: 100%;
+}
+
+ol.ps-4 {
+  background-color: transparent;
 }
 
 .title-input {
@@ -20,6 +29,17 @@
   border: 1px solid rgba(255, 255, 255, 0.3);
   border-radius: 10px;
   transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.empty-list {
+  visibility: hidden; /* Hides the container */
+  height: 0;
+  margin: 0;
+  padding: 0;
+}
+
+.ps-4 {
+  transition: visibility 0.3s ease, opacity 0.3s ease;
 }
 
 .title-input:focus {
@@ -86,7 +106,7 @@ ol {
   margin: 0 auto;
   padding: 15px;
   list-style-type: none;
-  background: var(--frosted-glass);
+  background: transparent;
   backdrop-filter: blur(10px);
   border-radius: 12px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);

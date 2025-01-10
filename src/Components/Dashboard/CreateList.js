@@ -109,21 +109,30 @@ export default function CreateList() {
           </button>
         </div>
 
-        <ol className="ps-4">
-          {items.map((item, index) => (
-            <li key={index} className="list-item d-flex align-items-center">
-              <span className="me-2">•</span>
-              <p className="flex-grow-1 mb-0">{item.text}</p>
-              <button
-                type="button"
-                className="btn remove-item-btn"
-                onClick={() => removeItem(index)}
-              >
-                x
-              </button>
-            </li>
-          ))}
-        </ol>
+        <div className={` ${items.length === 0 ? "empty-list" : ""}`}>
+          {
+            items.length > 0 ? (
+              <ol className="ps-4">
+                {items.map((item, index) => (
+                  <li
+                    key={index}
+                    className="list-item d-flex align-items-center"
+                  >
+                    <span className="me-2">•</span>
+                    <p className="flex-grow-1 mb-0">{item.text}</p>
+                    <button
+                      type="button"
+                      className="btn remove-item-btn"
+                      onClick={() => removeItem(index)}
+                    >
+                      x
+                    </button>
+                  </li>
+                ))}
+              </ol>
+            ) : null // Render nothing if the list is empty
+          }
+        </div>
 
         <button type="submit" className="btn btn-primary create-list-btn mt-4">
           Finish
