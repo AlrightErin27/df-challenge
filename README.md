@@ -27,6 +27,16 @@ Clarity is a web-based task management system that allows users to:
 - JWT for authentication
 - bcrypt for password hashing
 
+### Testing
+
+- Jest and Supertest for backend endpoint testing
+- Comprehensive test suite for user authentication
+- Automated testing for API responses and data validation
+
+### Other Tools
+
+- dotenv for environment variable management
+
 ## Application Structure
 
 ```plaintext
@@ -62,6 +72,14 @@ Frontend Routes:
 - Meaningful error messages for users
 - Email format validation
 - Username uniqueness checking
+
+### Testing & Validation
+
+- Automated testing with Jest for critical endpoints
+- User registration validation testing
+- Duplicate user prevention verification
+- Error handling test coverage
+- API response validation
 
 ## API Endpoints
 
