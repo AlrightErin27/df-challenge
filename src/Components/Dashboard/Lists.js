@@ -1,6 +1,7 @@
 import "./List.css";
 
 export default function Lists({ lists, error, onListClick }) {
+  // Helper function to format dates consistently using locale string
   const formatDate = (dateString) => {
     const date = new Date(dateString);
     return date.toLocaleDateString("en-US", {
@@ -13,6 +14,8 @@ export default function Lists({ lists, error, onListClick }) {
   return (
     <div className="lists-cont">
       <h2 className="text-center mb-4">Your Lists</h2>
+
+      {/* Error handling display */}
       {error && (
         <div className="alert alert-danger" role="alert">
           {error}
@@ -29,8 +32,20 @@ export default function Lists({ lists, error, onListClick }) {
                 onClick={() => onListClick(list)}
               >
                 <div className="ms-2 me-auto">
-                  <div className="fw-bold">
-                    {list.checkedList ? "☒" : "☐"} {list.title}
+                  {/* List title with strike-through if completed */}
+                  <div
+                    className={`fw-bold ${
+                      list.checkedList ? "completed-list" : ""
+                    }`}
+                    style={{
+                      textDecoration: list.checkedList
+                        ? "line-through"
+                        : "none",
+                      textDecorationColor: "var(--dark-teal)",
+                      textDecorationThickness: "2px",
+                    }}
+                  >
+                    {list.title}
                   </div>
                   <small className="text-light">
                     Created {formatDate(list.createdAt)}
