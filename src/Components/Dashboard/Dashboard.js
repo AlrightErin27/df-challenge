@@ -7,13 +7,13 @@ import ViewSingleList from "./ViewSingleList";
 export default function Dashboard({ handleLogout }) {
   const navigate = useNavigate();
   const location = useLocation();
-  console.log("Current location:", location);
+  // console.log("Current location:", location);
 
   function handleNewList() {
-    console.log("handleNewList clicked");
-    console.log("About to navigate to:", "/dashboard/create-list");
+    // console.log("handleNewList clicked");
+    // console.log("About to navigate to:", "/dashboard/create-list");
     navigate("/dashboard/create-list");
-    console.log("Navigation completed");
+    // console.log("Navigation completed");
   }
   // Function to handle rendering views based on URL path
   function handleDashView() {

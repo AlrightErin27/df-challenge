@@ -5,6 +5,7 @@ const mongoose = require("mongoose");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const User = require("./models/User");
+const List = require("./models/List");
 const cors = require("cors");
 
 // Initialize dotenv to use environment variables
@@ -124,6 +125,48 @@ app.post("/login", async (req, res) => {
   } catch (error) {
     console.error("Error during login:", error.message);
     res.status(500).json({ error: "Server error: " + error.message });
+  }
+});
+
+//  * Create List Route (POST /lists)
+app.post("/api/lists", async (req, res) => {
+  try {
+    // Get token from headers
+    const token = req.headers.authorization?.split(" ")[1];
+    if (!token) {
+      console.log("List creation failed: No token provided");
+      return res.status(401).json({ error: "No token provided" });
+    }
+
+    // Verify token and get user id
+    const decoded = jwt.verify(token, process.env.JWT_SECRET);
+    const userId = decoded.id;
+
+    // Get list data from request body
+    const { title, items } = req.body;
+    console.log("List creation attempt by user:", decoded.username);
+    console.log("List details:", {
+      title,
+      itemCount: items.length,
+    });
+
+    // Create new list using your existing model
+    const newList = new List({
+      userId,
+      title,
+      items,
+      checkedList: false,
+    });
+
+    await newList.save();
+    console.log("List created successfully for user:", decoded.username);
+    res
+      .status(201)
+      .json({ message: "List created successfully", list: newList });
+  } catch (error) {
+    console.error("Error creating list:", error);
+    console.log("List creation failed:", error.message);
+    res.status(500).json({ error: "Error creating list" });
   }
 });
 

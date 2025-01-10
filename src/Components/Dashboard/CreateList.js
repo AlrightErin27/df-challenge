@@ -1,30 +1,83 @@
 import { useState } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./CreateList.css";
+import { useNavigate } from "react-router-dom";
 
 export default function CreateList() {
-  const [title, setTitle] = useState(""); // For the list title
-  const [items, setItems] = useState([]); // For list items
-  const [itemInput, setItemInput] = useState(""); // For the current input to add a new item
+  const [title, setTitle] = useState("");
+  const [items, setItems] = useState([]);
+  const [itemInput, setItemInput] = useState("");
+  const [message, setMessage] = useState("");
+  const navigate = useNavigate();
 
-  // Add item to the list
   function addItem() {
     if (itemInput.trim() !== "") {
-      setItems([...items, { text: itemInput, checkedItem: false }]); // Adds obj to items arr
-      setItemInput(""); // Clear the input field
+      setItems([
+        ...items,
+        {
+          text: itemInput,
+          checkedItem: false,
+        },
+      ]);
+      setItemInput("");
     }
   }
 
-  // Remove an item from the list
   function removeItem(index) {
-    setItems(items.filter((_, i) => i !== index)); // Removes obj from items arr
+    setItems(items.filter((_, i) => i !== index));
+  }
+
+  async function handleFinish(e) {
+    e.preventDefault();
+
+    // Basic validation
+    if (!title.trim()) {
+      setMessage("Please enter a list title");
+      return;
+    }
+    if (items.length === 0) {
+      setMessage("Please add at least one item to your list");
+      return;
+    }
+
+    try {
+      const token = localStorage.getItem("token");
+      console.log("Attempting to create list...");
+
+      const response = await fetch("/api/lists", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify({
+          title: title,
+          items: items.map((item) => ({
+            text: item.text,
+            checkedItem: item.checkedItem,
+          })),
+          checkedList: false,
+        }),
+      });
+
+      const data = await response.json();
+      if (response.ok) {
+        console.log("List created successfully");
+        navigate("/dashboard");
+      } else {
+        setMessage(data.error || "Failed to create list");
+      }
+    } catch (error) {
+      console.error("Error creating list:", error);
+      setMessage("Failed to create list. Please try again.");
+    }
   }
 
   return (
     <div className="create-list-cont container">
       <h2 className="text-center mb-4">Create a New List</h2>
-      <form className="mb-4">
-        {/* List Title */}
+      {message && <p className="alert alert-danger">{message}</p>}
+      <form className="mb-4" onSubmit={handleFinish}>
         <div className="mb-3">
           <input
             type="text"
@@ -36,7 +89,6 @@ export default function CreateList() {
           />
         </div>
 
-        {/* Add Items to the List */}
         <div className="input-row mb-3 d-flex align-items-center">
           <span className="me-2">•</span>
           <input
@@ -54,26 +106,27 @@ export default function CreateList() {
             +
           </button>
         </div>
+
+        <ol className="ps-4">
+          {items.map((item, index) => (
+            <li key={index} className="list-item d-flex align-items-center">
+              <span className="me-2">•</span>
+              <p className="flex-grow-1 mb-0">{item.text}</p>
+              <button
+                type="button"
+                className="btn remove-item-btn"
+                onClick={() => removeItem(index)}
+              >
+                x
+              </button>
+            </li>
+          ))}
+        </ol>
+
+        <button type="submit" className="custom-btn mt-4">
+          Finish
+        </button>
       </form>
-
-      {/* List of Items */}
-      <ol className="ps-4">
-        {items.map((item, index) => (
-          <li key={index} className="list-item d-flex align-items-center">
-            <span className="me-2">•</span>
-            <p className="flex-grow-1 mb-0">{item.text}</p>
-            <button
-              type="button"
-              className="btn remove-item-btn"
-              onClick={() => removeItem(index)}
-            >
-              x
-            </button>
-          </li>
-        ))}
-      </ol>
-
-      <button className="custom-btn mt-4">Finish</button>
     </div>
   );
 }
