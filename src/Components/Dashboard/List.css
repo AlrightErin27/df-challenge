@@ -2,7 +2,7 @@
   width: 100%;
   max-width: 800px;
   margin: 0 auto;
-  height: 100%;
+  height: auto;
   display: flex;
   flex-direction: column;
 }
@@ -46,6 +46,7 @@
   align-items: center;
   padding: 10px 15px;
   border-radius: 8px;
+  font-size: clamp(0.9rem, 1vw, 1.2rem);
 }
 
 .list-group-item:hover {
@@ -55,7 +56,7 @@
 
 .list-group-item .fw-bold {
   font-family: "Lexend Zetta", serif;
-  font-size: 1.5rem;
+  font-size: clamp(1rem, 1.5vw, 1.5rem);
   color: var(--white);
   display: flex;
   align-items: center;
@@ -68,6 +69,42 @@
 
 .list-group-item small {
   font-family: "Poppins", sans-serif;
-  font-size: 1rem;
+  font-size: clamp(1rem, 1vw, 0.9rem);
   color: var(--softer-accent);
+}
+
+/* Media Queries */
+@media (max-width: 768px) {
+  .lists-scroll-container {
+    padding: 1px;
+    max-height: 60vh;
+  }
+
+  .lists-cont {
+    width: 90%;
+    max-width: none;
+  }
+
+  .list-group-item .fw-bold {
+    font-size: clamp(1rem, 3vw, 1.3rem);
+  }
+}
+
+@media (max-width: 480px) {
+  .lists-scroll-container {
+    padding: 8px;
+    margin-bottom: 10px;
+  }
+
+  .list-group-item {
+    padding: 8px;
+  }
+
+  .list-group-item .fw-bold {
+    font-size: 1rem;
+  }
+
+  .list-group-item small {
+    font-size: 0.7rem;
+  }
 }

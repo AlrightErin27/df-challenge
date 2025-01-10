@@ -100,11 +100,11 @@ footer::before {
 /* Media Queries  */
 @media (max-width: 768px) {
   .header-container h1 {
-    font-size: clamp(1.8rem, 4vw, 3rem); /* Smaller font on smaller screens */
+    font-size: clamp(1.8rem, 4vw, 3rem);
   }
 
   .content-container {
-    margin: 0 10px; /* Reduce margins for smaller screens */
-    padding: 20px; /* Ensure padding adapts */
+    margin: 0 10px;
+    padding: 20px;
   }
 }

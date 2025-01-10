@@ -10,9 +10,9 @@ body {
 }
 
 .dashboard-cont {
-  width: 100%; /* Take up the full width of content-container */
-  max-width: 1200px; /* Optional: Set a maximum width for large screens */
-  margin: 0 auto; /* Center the content horizontally */
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
   color: var(--white);
   font-family: "Poppins", sans-serif;
   display: flex;
@@ -20,12 +20,13 @@ body {
   align-items: center;
   padding: 20px;
   box-sizing: border-box;
-  overflow-x: hidden; /* Prevent horizontal scrolling */
+  overflow-x: hidden;
 }
 
 .custom-btn {
-  width: 250px;
-  margin: 15px 1px;
+  width: 100%;
+  max-width: 250px;
+  margin: 15px auto;
   padding: 10px 15px;
   background: var(--accent);
   color: var(--dark-teal);
@@ -33,11 +34,23 @@ body {
   border-radius: 8px;
   cursor: pointer;
   font-weight: bold;
-  font-size: 1rem;
+  font-size: clamp(0.9rem, 1.2vw, 1.2rem);
   transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 .custom-btn:hover {
   background: var(--white);
   color: var(--dark-teal);
+}
+
+/* Media Queries  */
+@media (max-width: 768px) {
+  .dashboard-cont {
+    padding: 1px;
+  }
+
+  .custom-btn {
+    max-width: 100%;
+    font-size: clamp(0.8rem, 1.5vw, 1rem);
+  }
 }
