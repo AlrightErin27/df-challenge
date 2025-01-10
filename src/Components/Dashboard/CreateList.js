@@ -77,7 +77,7 @@ export default function CreateList() {
 
   return (
     <div className="create-list-cont container">
-      <h2 className="text-center mb-4">Create a New List</h2>
+      <h2 className="text-center mb-4">Create List</h2>
       {message && <p className="alert alert-danger">{message}</p>}
       <form className="mb-4" onSubmit={handleFinish}>
         <div className="mb-3">
@@ -110,28 +110,27 @@ export default function CreateList() {
         </div>
 
         <div className={` ${items.length === 0 ? "empty-list" : ""}`}>
-          {
-            items.length > 0 ? (
-              <ol className="ps-4">
-                {items.map((item, index) => (
-                  <li
-                    key={index}
-                    className="list-item d-flex align-items-center"
-                  >
-                    <span className="me-2">•</span>
-                    <p className="flex-grow-1 mb-0">{item.text}</p>
-                    <button
-                      type="button"
-                      className="btn remove-item-btn"
-                      onClick={() => removeItem(index)}
-                    >
-                      x
-                    </button>
-                  </li>
-                ))}
-              </ol>
-            ) : null // Render nothing if the list is empty
-          }
+          {items.map((item, index) => (
+            <li key={index} className="list-item d-flex align-items-center">
+              <p
+                className="flex-grow-1 mb-0"
+                style={{
+                  textDecoration: item.checkedItem ? "line-through" : "none",
+                  textDecorationColor: "var(--dark-teal)",
+                  textDecorationThickness: "2px",
+                }}
+              >
+                {item.text}
+              </p>
+              <button
+                type="button"
+                className="btn remove-item-btn"
+                onClick={() => removeItem(index)}
+              >
+                x
+              </button>
+            </li>
+          ))}
         </div>
 
         <button type="submit" className="btn btn-primary create-list-btn mt-4">

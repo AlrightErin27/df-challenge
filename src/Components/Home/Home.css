@@ -103,6 +103,7 @@ body {
 footer {
   font-size: clamp(0.7rem, 2vw, 1rem);
   color: var(--white);
+  font-family: "DM Serif Text", serif;
   text-align: center;
   margin-top: auto;
   background-color: rgba(255, 255, 255, 0.1);

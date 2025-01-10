@@ -16,6 +16,10 @@
   width: 100%;
 }
 
+.create-list-cont h2 {
+  font-family: "DM Serif Text", serif;
+}
+
 ol.ps-4 {
   background-color: transparent;
 }
@@ -66,7 +70,7 @@ ol.ps-4 {
   outline: none;
 }
 
-.add-item-btn,
+/* .add-item-btn,
 .remove-item-btn {
   width: 30px;
   height: 30px;
@@ -100,6 +104,44 @@ ol.ps-4 {
   background: var(--white);
   color: var(--danger);
   transform: scale(1.1);
+} */
+
+.add-item-btn,
+.remove-item-btn {
+  width: 24px; /* Smaller size */
+  height: 24px;
+  border-radius: 6px; /* Less rounded for a more sophisticated look */
+  font-size: 1rem; /* Slightly smaller font */
+  font-weight: 500; /* Less bold */
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: all 0.3s ease;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(5px);
+}
+
+.add-item-btn {
+  background: var(--accent);
+  color: var(--dark-teal);
+}
+
+.add-item-btn:hover {
+  background: var(--white);
+  transform: translateY(-2px);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.remove-item-btn {
+  background: var(--accent);
+  color: var(--dark-teal);
+}
+
+.remove-item-btn:hover {
+  background: var(--white);
+  transform: translateY(-2px);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
 
 ol {
@@ -143,7 +185,7 @@ ol {
 /* Finish Button */
 .create-list-btn {
   margin: 20px 0;
-  width: 100%;
+  width: 80%;
   max-width: 300px;
   background: var(--accent);
   color: var(--dark-teal);
@@ -174,13 +216,6 @@ ol {
   .add-item-input {
     font-size: 0.9rem;
     padding: 8px;
-  }
-
-  .add-item-btn,
-  .remove-item-btn {
-    width: 28px;
-    height: 28px;
-    font-size: 1rem;
   }
 
   .create-list-btn {
