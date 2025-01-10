@@ -10,12 +10,17 @@ body {
 }
 
 .dashboard-cont {
-  height: 100%;
+  width: 100%; /* Take up the full width of content-container */
+  max-width: 1200px; /* Optional: Set a maximum width for large screens */
+  margin: 0 auto; /* Center the content horizontally */
   color: var(--white);
   font-family: "Poppins", sans-serif;
   display: flex;
   flex-direction: column;
   align-items: center;
+  padding: 20px;
+  box-sizing: border-box;
+  overflow-x: hidden; /* Prevent horizontal scrolling */
 }
 
 .custom-btn {

@@ -10,12 +10,16 @@
 .lists-scroll-container {
   flex: 1;
   overflow-y: auto;
-  padding-right: 10px;
+  padding: 15px;
   margin-bottom: 20px;
   max-height: 50vh;
+  background: var(--frosted-glass);
+  backdrop-filter: blur(10px);
+  border-radius: 12px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.2);
 }
 
-/* Custom scrollbar styling */
 .lists-scroll-container::-webkit-scrollbar {
   width: 8px;
 }
@@ -34,16 +38,36 @@
   background: var(--white);
 }
 
-/* List item styling */
 .list-group-item {
   transition: transform 0.2s ease, background-color 0.2s ease;
   cursor: pointer;
   background-color: transparent !important;
-  /* border: none !important; */
-  /* margin-bottom: 8px; */
+  display: flex;
+  align-items: center;
+  padding: 10px 15px;
+  border-radius: 8px;
 }
 
 .list-group-item:hover {
   transform: translateX(2px);
   background-color: var(--frosted-glass) !important;
+}
+
+.list-group-item .fw-bold {
+  font-family: "Lexend Zetta", serif;
+  font-size: 1.5rem;
+  color: var(--white);
+  display: flex;
+  align-items: center;
+}
+
+.list-group-item .fw-bold::before {
+  content: " ";
+  margin-right: 8px;
+}
+
+.list-group-item small {
+  font-family: "Poppins", sans-serif;
+  font-size: 1rem;
+  color: var(--softer-accent);
 }
