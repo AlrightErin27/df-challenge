@@ -27,22 +27,17 @@ body {
 
 #root {
   height: 100%;
-  background-color: rgba(6, 92, 92, 0.136);
 }
 
 .home-cont {
-  height: 80vh;
+  height: 100vh;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  /* align-items: center; */
   background: var(--gradient-primary);
   color: var(--white);
   font-family: "Poppins", sans-serif;
-  padding: 20px 0;
-  /* background-image: url("../../Imgs/ferns.jpg");
-  background-repeat: no-repeat;
-  background-size: cover; */
+  padding: 0 0;
 }
 
 .header-container {
@@ -54,20 +49,43 @@ body {
   font-family: "Lexend Zetta", serif;
 }
 
+.text-light {
+  color: var(--accent) !important;
+}
+
 .content-container {
+  flex: 1;
+  display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   background: var(--frosted-glass);
   backdrop-filter: blur(10px);
-  height: 90vh;
   border-radius: 12px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+  margin: 0 20px;
 }
 
 footer {
   font-size: 0.9rem;
-  color: var(--accent);
+  color: var(--dark-teal);
   text-align: center;
-  margin-top: 20px;
+  margin-top: auto;
+  background-color: var(--white);
+  width: 100vw;
+  padding-top: 15px;
+  position: relative;
+}
+
+footer::before {
+  content: "";
+  position: absolute;
+  top: -1px;
+  left: 0;
+  width: 100%;
+  height: 10px;
+  background: linear-gradient(to bottom, rgba(0, 43, 54, 0.6), transparent);
+  backdrop-filter: blur(100px);
+  z-index: 1;
+  pointer-events: none;
 }

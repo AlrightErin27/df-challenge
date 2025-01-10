@@ -53,16 +53,15 @@ export default function Home() {
             <Dashboard handleLogout={handleLogout} /> // Pass handleLogout to Dashboard
           )}
         </div>
-
-        <footer className="mt-4">
-          <p className="text-muted">
-            Built for simplicity, powered by Clarity
-            <br />
-            Created by Erin Van Brunt, Software Engineer &copy;{" "}
-            {new Date().getFullYear()}
-          </p>
-        </footer>
       </div>
+      <footer className="mt-4">
+        <p>
+          Built for simplicity, powered by Clarity
+          <br />
+          Created by Erin Van Brunt, Software Engineer &copy;{" "}
+          {new Date().getFullYear()}
+        </p>
+      </footer>
     </div>
   );
 }
