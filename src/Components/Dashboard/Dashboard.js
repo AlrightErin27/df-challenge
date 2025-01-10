@@ -11,29 +11,30 @@ export default function Dashboard({ handleLogout }) {
   const [lists, setLists] = useState([]);
   const [error, setError] = useState("");
 
-  // Fetch lists when component mounts
-  useEffect(() => {
-    const fetchLists = async () => {
-      try {
-        const token = localStorage.getItem("token");
-        const response = await fetch("/api/lists", {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        });
+  // Fetch lists function
+  const fetchLists = async () => {
+    try {
+      const token = localStorage.getItem("token");
+      const response = await fetch("/api/lists", {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
 
-        if (response.ok) {
-          const data = await response.json();
-          setLists(data);
-        } else {
-          setError("Failed to fetch lists");
-        }
-      } catch (error) {
-        console.error("Error fetching lists:", error);
+      if (response.ok) {
+        const data = await response.json();
+        setLists(data);
+      } else {
         setError("Failed to fetch lists");
       }
-    };
+    } catch (error) {
+      console.error("Error fetching lists:", error);
+      setError("Failed to fetch lists");
+    }
+  };
 
+  // Initial fetch when component mounts
+  useEffect(() => {
     fetchLists();
   }, []);
 
@@ -53,7 +54,7 @@ export default function Dashboard({ handleLogout }) {
         </div>
       );
     }
-    return <Outlet />;
+    return <Outlet context={{ refreshLists: fetchLists }} />;
   }
 
   return (

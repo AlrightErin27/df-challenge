@@ -1,7 +1,7 @@
 import { useState } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./CreateList.css";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useOutletContext } from "react-router-dom";
 
 export default function CreateList() {
   const [title, setTitle] = useState("");
@@ -9,6 +9,7 @@ export default function CreateList() {
   const [itemInput, setItemInput] = useState("");
   const [message, setMessage] = useState("");
   const navigate = useNavigate();
+  const { refreshLists } = useOutletContext();
 
   function addItem() {
     if (itemInput.trim() !== "") {
@@ -63,6 +64,7 @@ export default function CreateList() {
       const data = await response.json();
       if (response.ok) {
         console.log("List created successfully");
+        await refreshLists(); //refresh dashboard to reveal newly created list
         navigate("/dashboard");
       } else {
         setMessage(data.error || "Failed to create list");
