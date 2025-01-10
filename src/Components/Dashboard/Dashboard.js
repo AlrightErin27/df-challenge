@@ -2,8 +2,6 @@ import { useNavigate, useLocation, Outlet } from "react-router-dom";
 import { useState, useEffect } from "react";
 import "./Dashboard.css";
 import Lists from "./Lists";
-import CreateList from "./CreateList";
-import ViewSingleList from "./ViewSingleList";
 
 export default function Dashboard({ handleLogout }) {
   const navigate = useNavigate();

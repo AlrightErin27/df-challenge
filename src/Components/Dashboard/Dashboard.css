@@ -10,19 +10,17 @@ body {
 }
 
 .dashboard-cont {
-  height: 60vh;
+  height: 100%;
   color: var(--white);
   font-family: "Poppins", sans-serif;
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
-  padding: 40px;
 }
 
 .custom-btn {
   width: 250px;
-  margin: 15px 01px;
+  margin: 15px 1px;
   padding: 10px 15px;
   background: var(--accent);
   color: var(--dark-teal);

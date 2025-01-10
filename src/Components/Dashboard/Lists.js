@@ -1,7 +1,6 @@
-import "./Dashboard.css";
+import "./List.css";
 
 export default function Lists({ lists, error }) {
-  // Format date to match your example (MM/DD/YY)
   const formatDate = (dateString) => {
     const date = new Date(dateString);
     return date.toLocaleDateString("en-US", {
@@ -13,17 +12,38 @@ export default function Lists({ lists, error }) {
 
   return (
     <div className="lists-cont">
-      <h2>Your Lists</h2>
-      {error && <p className="error">{error}</p>}
-      <ol>
-        {lists.map((list) => (
-          <li key={list._id}>
-            {list.checkedList ? "☒" : "☐"} {list.title}, Created{" "}
-            {formatDate(list.createdAt)}
-          </li>
-        ))}
-      </ol>
-      {lists.length === 0 && <p>No lists found. Create one to get started!</p>}
+      <h2 className="text-center mb-4">Your Lists</h2>
+      {error && (
+        <div className="alert alert-danger" role="alert">
+          {error}
+        </div>
+      )}
+
+      <div className="lists-scroll-container">
+        {lists.length > 0 ? (
+          <ol className="list-group list-group-numbered">
+            {lists.map((list) => (
+              <li
+                key={list._id}
+                className="list-group-item d-flex justify-content-between align-items-center text-white"
+              >
+                <div className="ms-2 me-auto">
+                  <div className="fw-bold">
+                    {list.checkedList ? "☒" : "☐"} {list.title}
+                  </div>
+                  <small className="text-light">
+                    Created {formatDate(list.createdAt)}
+                  </small>
+                </div>
+              </li>
+            ))}
+          </ol>
+        ) : (
+          <p className="text-center text-light fst-italic">
+            No lists found. Create one to get started!
+          </p>
+        )}
+      </div>
     </div>
   );
 }
