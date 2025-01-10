@@ -124,7 +124,7 @@ export default function ViewSingleList() {
       </div>
 
       <div className="d-flex justify-content-center gap-3">
-        <button
+        {/* <button
           className="back-to-lists-btn mt-4"
           onClick={() => {
             refreshLists();
@@ -132,7 +132,7 @@ export default function ViewSingleList() {
           }}
         >
           Back to Lists
-        </button>
+        </button> */}
         <button className="delete-list-btn mt-4" onClick={handleDelete}>
           Delete List
         </button>

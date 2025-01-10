@@ -34,6 +34,13 @@ export default function Dashboard({ handleLogout }) {
     fetchLists();
   }, []);
 
+  useEffect(() => {
+    // Fetch lists whenever the path is "/dashboard"
+    if (location.pathname === "/dashboard") {
+      fetchLists();
+    }
+  }, [location.pathname]);
+
   const handleListClick = (list) => {
     console.log("clicked list: ", list.title);
     navigate("/dashboard/view-list", { state: { list } });
