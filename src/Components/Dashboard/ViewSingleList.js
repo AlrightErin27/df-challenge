@@ -8,7 +8,7 @@ export default function ViewSingleList() {
   const [currentList, setCurrentList] = useState(location.state?.list);
   const { refreshLists } = useOutletContext();
 
-  // Add this useEffect to fetch fresh list data when component mounts
+  // Fetch fresh list data when component mounts
   useEffect(() => {
     const fetchCurrentList = async () => {
       try {
@@ -71,7 +71,8 @@ export default function ViewSingleList() {
   return (
     <div className="view-single-list-cont container">
       <div className="text-center mb-4">
-        <h2 className="display-6 fw-bold text-white">{currentList.title}</h2>
+        List:
+        <h2 className="display-6 list-title">{currentList.title}</h2>
         <div className="status-badge mb-2">
           {currentList.checkedList ? (
             <span className="badge bg-success">Completed</span>
@@ -85,20 +86,17 @@ export default function ViewSingleList() {
       </div>
 
       <div className="list-items-container">
-        <ol className="list-group list-group-numbered">
+        <ol className="list-container">
           {currentList.items.map((item) => (
             <li
               key={item._id}
-              className="list-group-item d-flex align-items-center bg-transparent text-white border-light"
+              className={`list-item d-flex justify-content-between align-items-center ${
+                item.checkedItem ? "item-checked" : "item-unchecked"
+              }`}
               onClick={() => handleItemClick(item._id, item.checkedItem)}
             >
-              <div className="ms-2 me-auto">
-                <div className="fw-normal">
-                  <span style={{ cursor: "pointer" }}>
-                    {item.checkedItem ? "☒" : "☐"}
-                  </span>{" "}
-                  {item.text}
-                </div>
+              <div className="fw-bold">
+                <span>{item.checkedItem ? "☒" : "☐"}</span> {item.text}
               </div>
             </li>
           ))}
@@ -106,7 +104,7 @@ export default function ViewSingleList() {
       </div>
 
       <button
-        className="custom-btn mt-4"
+        className="back-to-lists-btn mt-4"
         onClick={() => {
           refreshLists();
           navigate("/dashboard");
