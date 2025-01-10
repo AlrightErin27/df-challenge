@@ -8,6 +8,7 @@ const User = require("./models/User");
 const List = require("./models/List");
 const cors = require("cors");
 
+// npm run start-all
 // Initialize dotenv to use environment variables
 dotenv.config();
 

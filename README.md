@@ -1,101 +1,155 @@
-# DF Challenge
+# Clarity - Your Path to Organization
 
-# Objective:
+A modern full-stack to-do list application that helps users organize their tasks with secure authentication and real-time updates. Built with React and Node.js, Clarity offers an intuitive interface for managing personal task lists.
 
-## Full Stack Web Developer Challenge
+## Project Overview
 
-Develop a web application for managing a simple to-do list with user authentication. The application should allow users to sign up, log in, create, read, update, and delete tasks. Each user should only have access to their own tasks.
+Clarity is a web-based task management system that allows users to:
 
----
+- Create and manage multiple to-do lists
+- Track task completion in real-time
+- Secure personal tasks with user authentication
+- Access their lists from any device
 
-## Requirements:
+## Technology Stack
 
-### Front-end:
+### Frontend
 
-1. **Framework/Library**: Use React.
-2. **Design**: Create a simple, user-friendly UI using a CSS framework like Bootstrap or Material-UI.
-3. **Pages/Components**:
-   - **Sign Up Page**: Form for new users to create an account.
-   - **Login Page**: Form for existing users to log in.
-   - **To-Do List Page**: Display a list of tasks with options to add, edit, and delete tasks.
-   - **Task Form Component**: Used for adding and editing tasks.
-4. **State Management**: Use React’s Context API or Redux for state management.
-5. **Routing**: Use React Router for navigating between pages.
+- React.js
+- React Router for navigation
+- Bootstrap 5 for responsive design
+- Context API for state management
 
-### Back-end:
+### Backend
 
-1. **Framework**: Use Node.js with Express.js.
-2. **Database**: Use MongoDB with Mongoose for data modeling.
-3. **Authentication**: Implement JWT-based authentication.
-4. **API Endpoints**:
-   - **User Registration**: `POST /api/register`
-   - **User Login**: `POST /api/login`
-   - **Get User’s Tasks**: `GET /api/tasks`
-   - **Add Task**: `POST /api/tasks`
-   - **Update Task**: `PUT /api/tasks/:id`
-   - **Delete Task**: `DELETE /api/tasks/:id`
+- Node.js with Express
+- MongoDB with Mongoose
+- JWT for authentication
+- bcrypt for password hashing
 
----
+## Application Structure
 
-## Functionality:
+```plaintext
+Frontend Routes:
+/ - Home (wrapper component)
+├── / - Entry (login/register forms)
+└── /dashboard - Main application area
+    ├── /dashboard - Lists overview
+    ├── /dashboard/create-list - Create new list
+    └── /dashboard/view-list - Single list view
+```
 
-1. **User Authentication**:
-   - Users should be able to register with a username, email, and password.
-   - Users should be able to log in with their email and password.
-   - Use JWT for maintaining user sessions.
-2. **Task Management**:
-   - Logged-in users should be able to create, read, update, and delete their tasks.
-   - Each user should only have access to their own tasks.
+## Features
 
----
+### User Authentication
 
-## Bonus Points:
+- Secure registration with email validation
+- JWT-based authentication
+- Password hashing with bcrypt
+- Protected routes and API endpoints
 
-1. **Validation**: Implement form validation on both client and server sides.
-2. **Error Handling**: Provide meaningful error messages and handle errors gracefully.
-3. **Responsive Design**: Ensure the application is mobile-friendly.
-4. **Unit Testing**: Write basic unit tests for both front-end components and back-end API endpoints.
-5. **Deployment**: Deploy the application to a cloud service like Heroku, Vercel, or Netlify.
+### Task Management
 
----
+- Create multiple lists
+- Real-time task status updates
+- Mark individual tasks as complete
+- Automatic list status tracking
+- Delete completed lists
 
-## Deliverables:
+### Error Handling
 
-1. **Source Code**: A GitHub repository containing the source code for both the front-end and back-end.
-2. **README**: A detailed README file with instructions on how to set up and run the application locally.
-3. **Demo**: A live demo link if the application is deployed.
+- Form validation on both client and server side
+- Meaningful error messages for users
+- Email format validation
+- Username uniqueness checking
 
----
+## API Endpoints
 
-## Evaluation Criteria:
+### Authentication
 
-1. **Code Quality**: Clean, readable, and well-documented code.
-2. **Functionality**: All required features work as expected.
-3. **UI/UX**: The application should be intuitive and user-friendly.
-4. **Security**: Proper implementation of authentication and data protection.
-5. **Bonus Points**: Implementation of additional features and best practices.
+- POST /register - New user registration
+- POST /login- User authentication
 
----
+### Task Management
 
-Good luck and happy coding!
+- GET /api/lists - Retrieve user's lists
+- POST /api/lists - Create new list
+- GET /api/lists/:listId - Get specific list
+- PATCH /api/lists/:listId/items/:itemId - Update task status
+- DELETE /api/lists/:listId - Remove list
 
-## Erin's Notes:
+## Getting Started
 
-Start front and backend at same time: npm run start-all
+### Prerequisites
 
-## DB NOTES
+- Node.js (v14 or higher)
+- MongoDB
+- npm or yarn
 
-### SCHEMA: User: 1. username, 2. email, 3. password, 4. lists
+### Environmental Variables
 
-### SCHEMA: Lists: 1. title, 2. date created, 3. items (has text and boolean user turns true (checked off) if user t has completed item ), 4. checkedList (boolean true if all list's items are checked off)
+#### Create a .env file in the root directory:
 
-{
-"title": "Garage Sale",
-"createdAt": "2024-02-02T00:00:00.000Z",
-"items": [
-{ "text": "sweep floor", "checkedItem": false },
-{ "text": "seal boxes", "checkedItem": true },
-{ "text": "make sign", "checkedItem": true }
-],
-"checkedList": false
-}
+```
+MONGO_URI=your_mongodb_connection_string
+JWT_SECRET=your_jwt_secret
+PORT=4000
+```
+
+### Installation
+
+1. Clone the repository
+
+```
+git clone https://github.com/YourUsername/clarity-todo.git
+cd clarity-todo
+```
+
+2. Install dependencies
+
+```
+# Install backend dependencies
+cd server
+npm install
+
+# Install frontend dependencies
+cd ../client
+npm install
+```
+
+3. Start the development servers
+
+```
+# Start backend (from server directory)
+npm run start
+
+# Start frontend (from client directory)
+npm run start
+```
+
+# Deployment
+
+**\*\*** FIXME: Add deployment details!!!!!!!!!!!!!
+
+# Security Features
+
+- JWT token expiration
+- Password hashing
+- Protected API endpoints
+- Input sanitization
+- Email validation
+- Minimum password length requirements
+
+# Contributing
+
+- Fork the repository
+- Create your feature branch (git checkout -b feature/AmazingFeature)
+- Commit your changes (git commit -m 'Add some AmazingFeature')
+- Push to the branch (git push origin feature/AmazingFeature)
+- Open a Pull Request
+
+# Acknowledgments
+
+- MongoDB Atlas for database hosting
+- Bootstrap for UI components
+- React Router for navigation management
