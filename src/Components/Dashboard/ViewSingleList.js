@@ -1,5 +1,6 @@
 import { useLocation, useNavigate, useOutletContext } from "react-router-dom";
-import "./ViewSingleList.css"; // Updated to use the renamed CSS file
+import "./ViewSingleList.css";
+import BASE_URL from "../../config";
 import { useState, useEffect } from "react";
 
 export default function ViewSingleList() {

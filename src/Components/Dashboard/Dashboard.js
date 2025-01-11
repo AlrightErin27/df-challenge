@@ -1,4 +1,5 @@
 import { useNavigate, useLocation, Outlet } from "react-router-dom";
+import BASE_URL from "../../config";
 import { useState, useEffect } from "react";
 import "./Dashboard.css";
 import Lists from "./Lists";
