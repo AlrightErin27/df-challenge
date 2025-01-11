@@ -99,4 +99,16 @@
   .item-text-smartphone {
     color: var(--dark-teal);
   }
+
+  .custom-list-items-container {
+    background-color: transparent !important;
+  }
+
+  .custom-list-view {
+    background-color: red !important;
+  }
+
+  .custom-list-item {
+    background-color: yellow !important;
+  }
 }
