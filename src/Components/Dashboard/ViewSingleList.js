@@ -1,26 +1,27 @@
 import { useLocation, useNavigate, useOutletContext } from "react-router-dom";
-import "./ViewSingleList.css";
+import "./ViewSingleList.css"; // Import the corresponding CSS file
 import { useState, useEffect } from "react";
 
 export default function ViewSingleList() {
-  const location = useLocation();
-  const navigate = useNavigate();
-  const [currentList, setCurrentList] = useState(location.state?.list);
-  const { refreshLists } = useOutletContext();
+  const location = useLocation(); // Get the current location
+  const navigate = useNavigate(); // Hook for navigation
+  const [currentList, setCurrentList] = useState(location.state?.list); // State to store the current list
+  const { refreshLists } = useOutletContext(); // Refresh the lists in the parent component
 
+  // Fetch the updated list from the server
   useEffect(() => {
     const fetchCurrentList = async () => {
       try {
-        const token = localStorage.getItem("token");
+        const token = localStorage.getItem("token"); // Retrieve the auth token
         const response = await fetch(`/api/lists/${currentList._id}`, {
           headers: {
-            Authorization: `Bearer ${token}`,
+            Authorization: `Bearer ${token}`, // Add the token to the request header
           },
         });
 
         if (response.ok) {
           const freshList = await response.json();
-          setCurrentList(freshList);
+          setCurrentList(freshList); // Update the current list
         }
       } catch (error) {
         console.error("Error fetching list:", error);
@@ -30,6 +31,7 @@ export default function ViewSingleList() {
     fetchCurrentList();
   }, [currentList._id]);
 
+  // Format the date for display
   const formatDate = (dateString) => {
     const date = new Date(dateString);
     return date.toLocaleDateString("en-US", {
@@ -39,6 +41,7 @@ export default function ViewSingleList() {
     });
   };
 
+  // Handle item toggle (checked/unchecked)
   const handleItemClick = async (itemId, currentChecked) => {
     try {
       const token = localStorage.getItem("token");
@@ -51,14 +54,14 @@ export default function ViewSingleList() {
             Authorization: `Bearer ${token}`,
           },
           body: JSON.stringify({
-            checkedItem: !currentChecked,
+            checkedItem: !currentChecked, // Toggle the item's checked state
           }),
         }
       );
 
       if (response.ok) {
         const updatedList = await response.json();
-        setCurrentList(updatedList);
+        setCurrentList(updatedList); // Update the list state with the new data
       } else {
         console.error("Failed to update item");
       }
@@ -67,19 +70,20 @@ export default function ViewSingleList() {
     }
   };
 
+  // Handle list deletion
   const handleDelete = async () => {
     try {
       const token = localStorage.getItem("token");
       const response = await fetch(`/api/lists/${currentList._id}`, {
         method: "DELETE",
         headers: {
-          Authorization: `Bearer ${token}`,
+          Authorization: `Bearer ${token}`, // Include the token in the header
         },
       });
 
       if (response.ok) {
-        refreshLists();
-        navigate("/dashboard");
+        refreshLists(); // Refresh the parent list after deletion
+        navigate("/dashboard"); // Navigate back to the dashboard
       } else {
         console.error("Failed to delete list");
       }
@@ -91,13 +95,12 @@ export default function ViewSingleList() {
   return (
     <div className="view-single-list-cont container">
       <div className="text-center mb-4">
-        List:
         <h2 className="display-6 list-title">{currentList.title}</h2>
         <div className="status-badge mb-2">
           {currentList.checkedList ? (
-            <span className="badge bg-success">Completed</span>
+            <span className="badge bg-custom-success">Completed</span>
           ) : (
-            <span className="badge bg-warning">In Progress</span>
+            <span className="badge bg-custom-warning">In Progress</span>
           )}
         </div>
         <p className="text-light">
@@ -106,17 +109,24 @@ export default function ViewSingleList() {
       </div>
 
       <div className="list-items-container">
-        <ol className="list-container">
+        <ol className="list-container-view">
           {currentList.items.map((item) => (
             <li
               key={item._id}
-              className={`list-item d-flex justify-content-between align-items-center ${
-                item.checkedItem ? "item-checked" : "item-unchecked"
-              }`}
+              className="list-item d-flex align-items-center"
               onClick={() => handleItemClick(item._id, item.checkedItem)}
             >
-              <div className="fw-bold">
-                <span>{item.checkedItem ? "☒" : "☐"}</span> {item.text}
+              <div
+                className="fw-bold"
+                style={{
+                  textDecoration: item.checkedItem ? "line-through" : "none",
+                  textDecorationColor: item.checkedItem
+                    ? "var(--dark-teal)"
+                    : "none", // Ensure the line-through color
+                  textDecorationThickness: "2px",
+                }}
+              >
+                {item.text}
               </div>
             </li>
           ))}
@@ -124,15 +134,6 @@ export default function ViewSingleList() {
       </div>
 
       <div className="d-flex justify-content-center gap-3">
-        {/* <button
-          className="back-to-lists-btn mt-4"
-          onClick={() => {
-            refreshLists();
-            navigate("/dashboard");
-          }}
-        >
-          Back to Lists
-        </button> */}
         <button className="delete-list-btn mt-4" onClick={handleDelete}>
           Delete List
         </button>
