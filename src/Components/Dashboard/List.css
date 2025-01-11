@@ -51,7 +51,7 @@
 }
 
 .list-group-item {
-  background: rgba(255, 255, 255, 0.03) !important;
+  background: rgba(255, 255, 255, 0.136) !important;
   border: 1px solid rgba(255, 255, 255, 0.05);
   backdrop-filter: blur(5px);
   transition: all 0.3s ease;
@@ -157,7 +157,7 @@
   }
 
   .list-group-item .fw-bold {
-    font-size: 1rem;
+    font-size: 1.2rem;
     color: var(--white);
   }
 

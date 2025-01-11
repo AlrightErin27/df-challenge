@@ -34,7 +34,6 @@ body {
   background: var(--gradient-primary);
   color: var(--white);
   font-family: "Poppins", sans-serif;
-
   padding: 0 0;
   overflow: hidden;
   position: relative;
@@ -66,8 +65,8 @@ body {
 
 .header-container h1 {
   font-family: "DM Serif Text", serif;
-  font-size: clamp(2.5rem, 5vw, 4rem);
-  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+  font-size: clamp(2.5rem, 5vw, 5.5rem);
+  text-shadow: 10px 10px 10px rgba(0, 0, 0, 0.417);
   /* margin-bottom: 0.5rem; */
 }
 
@@ -79,6 +78,7 @@ body {
 
 .content-container {
   flex: 1;
+  min-height: 70vh;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -139,6 +139,10 @@ footer::before {
 }
 
 @media (max-width: 480px) {
+  .header-container h1 {
+    font-size: 3rem;
+  }
+
   footer {
     padding: 27px 0;
     backdrop-filter: blur(18px);

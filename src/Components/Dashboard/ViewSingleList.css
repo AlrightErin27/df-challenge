@@ -73,6 +73,14 @@
   background: rgba(255, 255, 255, 0.03);
   border: 1px solid rgba(255, 255, 255, 0.05);
   position: relative;
+  font-family: "DM Serif Text", serif;
+  font-size: larger;
+  border: var(--white) solid 1px;
+  cursor: pointer;
+}
+
+.custom-list-item:hover {
+  background-color: #3b5d62;
 }
 
 .custom-delete-list-btn {
