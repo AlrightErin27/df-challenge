@@ -140,15 +140,14 @@ footer::before {
 
 @media (max-width: 480px) {
   footer {
-    padding: 15px 0;
+    padding: 27px 0;
     backdrop-filter: blur(18px);
   }
 
   footer::before {
     top: -1px;
-    background-color: yellow !important;
+    background-color: #1c5a5e54 !important;
     height: 11px;
-
     backdrop-filter: blur(100px);
   }
 }

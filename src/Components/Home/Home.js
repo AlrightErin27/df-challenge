@@ -52,8 +52,17 @@ export default function Home() {
         <p>
           Built for simplicity, powered by Clarity
           <br />
-          Created by Erin Van Brunt, Software Engineer &copy;{" "}
-          {new Date().getFullYear()}
+          Created by
+          <a
+            href="https://www.erinvanbrunt.com"
+            target="_blank"
+            rel="noopener noreferrer"
+            style={{ textDecoration: "underline", color: "inherit" }}
+          >
+            {" "}
+            Erin Van Brunt, Software Engineer
+          </a>
+          &copy; {new Date().getFullYear()}
         </p>
       </footer>
     </div>

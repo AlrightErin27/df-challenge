@@ -111,6 +111,6 @@
 
   .custom-list-item {
     background-color: #3b5d62 !important;
-    border: var(--softer-accent) solid 1px;
+    border: var(--white) solid 1px;
   }
 }
