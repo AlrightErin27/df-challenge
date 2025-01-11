@@ -57,23 +57,52 @@ export default function RegForm({ handleLogin }) {
         "E11000 duplicate key error collection: claritydb.users index: email_1 dup"
       )
     ) {
-      return <>Email already connected to an account</>;
+      return (
+        <>
+          🚫 The email you entered is already linked to an account. Please use a
+          different email or log in.
+        </>
+      );
+    } else if (
+      message === "Registration failed: Username already exists" ||
+      message === "Username already exists"
+    ) {
+      return (
+        <>
+          ⚠️ The username you entered is already taken. Please choose a
+          different one.
+        </>
+      );
     } else if (
       message.includes(
         "User validation failed: email: Please enter a valid email address"
       )
     ) {
-      return <>Invalid email</>;
+      return (
+        <>
+          ❌ The email address you entered is invalid. Please double-check and
+          try again.
+        </>
+      );
     } else if (
       message.includes("User validation failed: username: Path `username`")
     ) {
-      return <>Username must be longer than 3 characters</>;
+      return (
+        <>
+          ✍️ Usernames must be longer than 3 characters. Please update and try
+          again.
+        </>
+      );
     } else if (message !== "") {
-      return <>An unexpected error occurred</>;
+      console.log(message);
+      return (
+        <>
+          🚨 An unexpected error occurred. Please try again later or contact
+          support.
+        </>
+      );
     }
   }
-
-  console.log(message);
 
   return (
     <div className="reg-form-cont">
