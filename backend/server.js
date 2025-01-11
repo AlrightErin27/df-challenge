@@ -158,6 +158,30 @@ app.post("/login", async (req, res) => {
   }
 });
 
+//GET username for lists.js
+// GET current user's username
+app.get("/api/user", async (req, res) => {
+  try {
+    const token = req.headers.authorization?.split(" ")[1];
+    if (!token) {
+      return res.status(401).json({ error: "No token provided" });
+    }
+
+    const decoded = jwt.verify(token, process.env.JWT_SECRET);
+    const userId = decoded.id;
+
+    const user = await User.findById(userId).select("username");
+    if (!user) {
+      return res.status(404).json({ error: "User not found" });
+    }
+
+    res.json({ username: user.username });
+  } catch (error) {
+    console.error("Error fetching username:", error);
+    res.status(500).json({ error: "Error fetching username" });
+  }
+});
+
 // GET lists for logged in user, display in dashboard
 app.get("/api/lists", async (req, res) => {
   try {

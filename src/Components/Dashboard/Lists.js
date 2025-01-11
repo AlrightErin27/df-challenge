@@ -1,6 +1,35 @@
 import "./List.css";
+import { useState, useEffect } from "react";
+import BASE_URL from "../../config";
 
 export default function Lists({ lists, error, onListClick }) {
+  const [username, setUsername] = useState("");
+
+  // Fetch the current user's username
+  const fetchUsername = async () => {
+    try {
+      const token = localStorage.getItem("token");
+      const response = await fetch(`${BASE_URL}/api/user`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      if (response.ok) {
+        const data = await response.json();
+        setUsername(data.username);
+      } else {
+        console.error("Failed to fetch username");
+      }
+    } catch (error) {
+      console.error("Error fetching username:", error);
+    }
+  };
+
+  useEffect(() => {
+    fetchUsername();
+  }, []);
+
   // Helper function to format dates consistently using locale string
   const formatDate = (dateString) => {
     const date = new Date(dateString);
@@ -13,7 +42,9 @@ export default function Lists({ lists, error, onListClick }) {
 
   return (
     <div className="lists-cont">
-      <h2 className="text-center mb-4">Your Lists</h2>
+      <h2 className="text-center mb-4">
+        {username !== "" ? username : "Your"} Lists
+      </h2>
 
       {/* Error handling display */}
       {error && (
