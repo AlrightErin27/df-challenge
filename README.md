@@ -1,9 +1,24 @@
-# Clarity - Your Path to Organization
+<h1 align="center">
+✨ Clarity ✨
+</h1>
+<h3 align="center">
+Your Path to Organization
+</h3>
+
 
 A modern full-stack to-do list application that helps users organize their tasks with secure authentication and real-time updates. Built with React and Node.js, Clarity offers an intuitive interface for managing personal task lists.
 
+## Live Demo
+
+Try Clarity now at: https://df-challenge-frontend.onrender.com
+
 ## Project Overview
 
+<div align="center">
+<img src="./Imgs/LogIn.png" width="50%" alt="log in">
+<img src="./Imgs/MakeList.png" width="50%" alt="make list">
+<img src="./Imgs/Lists.png" width="50%" alt="lists">
+</div>
 Clarity is a web-based task management system that allows users to:
 
 - Create and manage multiple to-do lists
@@ -11,7 +26,7 @@ Clarity is a web-based task management system that allows users to:
 - Secure personal tasks with user authentication
 - Access their lists from any device
 
-## Technology Stack
+## Technology Stack 🛠️
 
 ### Frontend
 
@@ -58,7 +73,7 @@ Frontend Routes:
 - Password hashing with bcrypt
 - Protected routes and API endpoints
 
-### Task Management
+### Task Management 📝
 
 - Create multiple lists
 - Real-time task status updates
@@ -81,7 +96,7 @@ Frontend Routes:
 - Error handling test coverage
 - API response validation
 
-## API Endpoints
+## API Endpoints 🎯
 
 ### Authentication
 
@@ -114,7 +129,7 @@ JWT_SECRET=your_jwt_secret
 PORT=4000
 ```
 
-### Installation
+### Installation 🔧
 
 1. Clone the repository
 
@@ -145,9 +160,104 @@ npm run start
 npm run start
 ```
 
-# Deployment
+# Deployment 🚀
 
-**\*\*** FIXME: Add deployment details!!!!!!!!!!!!!
+## Current Deployment
+
+- Frontend URL: https://df-challenge-frontend.onrender.com
+- Backend URL: https://df-challenge.onrender.com
+- Database: MongoDB Atlas
+
+## Deployment Configuration
+
+### MongoDB Atlas Setup
+
+1. Database Configuration:
+   - Created project "Clarity" in MongoDB Atlas
+   - Established database "claritydb"
+   - Configured network access (IP: 0.0.0.0/0)
+   - Created database user with appropriate permissions
+
+### Render Deployment
+
+#### Backend Service (df-challenge)
+
+1. Service Configuration:
+
+   - Type: Web Service
+   - Repository: Connected to GitHub
+   - Root Directory: backend
+   - Runtime: Node.js
+   - Build Command: `npm install && npm uninstall bcrypt && npm install bcrypt --save`
+   - Start Command: `node server.js`
+
+2. Environment Variables:
+   - `MONGO_URI`: MongoDB Atlas connection string
+   - `JWT_SECRET`: Secret key for JWT authentication
+   - `NODE_ENV`: production
+
+#### Frontend Service (df-challenge-frontend)
+
+1. Service Configuration:
+
+   - Type: Static Site
+   - Repository: Same GitHub repository
+   - Root Directory: / (root level)
+   - Build Command: `npm run build`
+   - Publish Directory: build
+
+2. Environment Variables:
+   - `REACT_APP_API_URL`: https://df-challenge.onrender.com
+
+### Frontend Configuration
+
+1. API Connection Setup:
+   - Created `config.js` for environment-based URL management
+   - Configured production and development BASE_URLs
+   - Updated all fetch calls to use BASE_URL
+   - Removed proxy configuration from package.json
+
+### Deployment URLs
+
+Development Environment:
+
+- Frontend: http://localhost:3000
+- Backend: http://localhost:4000
+- Database: Local MongoDB instance
+
+Production Environment:
+
+- Frontend: https://df-challenge-frontend.onrender.com
+- Backend: https://df-challenge.onrender.com
+- Database: MongoDB Atlas
+
+### Deployment Process
+
+1. Database Preparation:
+
+   - Set up MongoDB Atlas cluster
+   - Configure database access credentials
+   - Enable network access
+   - Obtain connection string
+
+2. Backend Deployment:
+
+   - Push code to GitHub
+   - Create new Web Service in Render
+   - Configure environment variables
+   - Deploy and verify MongoDB connection
+
+3. Frontend Deployment:
+
+   - Create new Static Site in Render
+   - Set environment variables
+   - Deploy and verify backend connection
+
+4. Verification Steps:
+   - Test user registration flow
+   - Verify login functionality
+   - Test list creation and management
+   - Confirm database operations
 
 # Security Features
 
