@@ -43,7 +43,7 @@ export default function Lists({ lists, error, onListClick }) {
   return (
     <div className="lists-cont">
       <h2 className="text-center mb-4">
-        {username !== "" ? username : "Your"} Lists
+        {username !== "" ? username : "Your"}'s' Lists
       </h2>
 
       {/* Error handling display */}
