@@ -117,7 +117,7 @@ export default function ViewSingleList() {
               onClick={() => handleItemClick(item._id, item.checkedItem)}
             >
               <div className={item.checkedItem ? "custom-checked-item" : ""}>
-                {item.text}
+                <div className="item-text-smartphone">{item.text}</div>
               </div>
             </li>
           ))}

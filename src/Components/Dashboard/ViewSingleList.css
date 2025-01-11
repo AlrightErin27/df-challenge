@@ -94,3 +94,9 @@
   background: var(--white);
   color: var(--dark-teal);
 }
+
+@media (max-width: 480px) {
+  .item-text-smartphone {
+    color: var(--dark-teal);
+  }
+}
