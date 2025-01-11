@@ -293,6 +293,7 @@ app.patch("/api/lists/:listId/items/:itemId", async (req, res) => {
   }
 });
 
+//GET list item
 app.get("/api/lists/:listId", async (req, res) => {
   try {
     const token = req.headers.authorization?.split(" ")[1];
@@ -313,6 +314,40 @@ app.get("/api/lists/:listId", async (req, res) => {
   } catch (error) {
     console.error("Error fetching list:", error);
     res.status(500).json({ error: "Error fetching list" });
+  }
+});
+
+// POST to add an item to an existing list
+app.post("/api/lists/:listId/items", async (req, res) => {
+  try {
+    const token = req.headers.authorization?.split(" ")[1];
+    if (!token) {
+      return res.status(401).json({ error: "No token provided" });
+    }
+
+    const decoded = jwt.verify(token, process.env.JWT_SECRET);
+    const userId = decoded.id;
+
+    // Find the list by ID and ensure it belongs to the current user
+    const list = await List.findOne({ _id: req.params.listId, userId });
+    if (!list) {
+      return res.status(404).json({ error: "List not found" });
+    }
+
+    // Add the new item to the list
+    const newItem = {
+      text: req.body.text,
+      checkedItem: false,
+    };
+    list.items.push(newItem);
+
+    // Save the updated list
+    await list.save();
+
+    res.status(200).json(list);
+  } catch (error) {
+    console.error("Error adding item to list:", error);
+    res.status(500).json({ error: "Error adding item to list" });
   }
 });
 

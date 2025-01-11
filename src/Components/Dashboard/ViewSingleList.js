@@ -7,6 +7,7 @@ export default function ViewSingleList() {
   const location = useLocation();
   const navigate = useNavigate();
   const [currentList, setCurrentList] = useState(location.state?.list);
+  const [newItemInput, setNewItemInput] = useState(""); // New state for item input
   const { refreshLists } = useOutletContext();
 
   useEffect(() => {
@@ -34,6 +35,35 @@ export default function ViewSingleList() {
     fetchCurrentList();
   }, [currentList._id]);
 
+  const addItemToList = async () => {
+    if (newItemInput.trim() === "") return; // Ensure non-empty input
+
+    try {
+      const token = localStorage.getItem("token");
+      const response = await fetch(
+        `${BASE_URL}/api/lists/${currentList._id}/items`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+          body: JSON.stringify({ text: newItemInput }),
+        }
+      );
+
+      if (response.ok) {
+        const updatedList = await response.json();
+        setCurrentList(updatedList); // Update the current list state
+        setNewItemInput(""); // Clear input field
+      } else {
+        console.error("Failed to add item to the list");
+      }
+    } catch (error) {
+      console.error("Error adding item to list:", error);
+    }
+  };
+
   const formatDate = (dateString) => {
     const date = new Date(dateString);
     return date.toLocaleDateString("en-US", {
@@ -41,34 +71,6 @@ export default function ViewSingleList() {
       day: "2-digit",
       year: "2-digit",
     });
-  };
-
-  const handleItemClick = async (itemId, currentChecked) => {
-    try {
-      const token = localStorage.getItem("token");
-      const response = await fetch(
-        `${BASE_URL}/api/lists/${currentList._id}/items/${itemId}`,
-        {
-          method: "PATCH",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
-          },
-          body: JSON.stringify({
-            checkedItem: !currentChecked,
-          }),
-        }
-      );
-
-      if (response.ok) {
-        const updatedList = await response.json();
-        setCurrentList(updatedList);
-      } else {
-        console.error("Failed to update item");
-      }
-    } catch (error) {
-      console.error("Error updating item:", error);
-    }
   };
 
   const handleDelete = async () => {
@@ -114,7 +116,6 @@ export default function ViewSingleList() {
             <li
               key={`${item._id}-${item.checkedItem}`} // Ensure uniqueness to trigger re-render
               className="custom-list-item d-flex align-items-center"
-              onClick={() => handleItemClick(item._id, item.checkedItem)}
             >
               <div className={item.checkedItem ? "custom-checked-item" : ""}>
                 <div className="item-text-smartphone">{item.text}</div>
@@ -124,8 +125,21 @@ export default function ViewSingleList() {
         </ol>
       </div>
 
-      <div className="d-flex justify-content-center gap-3">
-        <button className="custom-delete-list-btn mt-4" onClick={handleDelete}>
+      <div className="add-item-container">
+        <input
+          type="text"
+          className="add-item-input"
+          placeholder="Add a new item"
+          value={newItemInput}
+          onChange={(e) => setNewItemInput(e.target.value)}
+        />
+        <button className="add-item-btn" onClick={addItemToList}>
+          +
+        </button>
+      </div>
+
+      <div className="d-flex justify-content-center gap-3 mt-4">
+        <button className="custom-delete-list-btn" onClick={handleDelete}>
           Delete List
         </button>
       </div>
