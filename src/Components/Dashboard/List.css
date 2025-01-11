@@ -137,12 +137,7 @@
     color: var(--accent);
     padding: 8px;
     /* Fallback and adjusted transparency for better rendering on mobile */
-    background: rgba(
-      255,
-      255,
-      255,
-      0.1
-    ) !important; /* Higher transparency for visibility */
+    background: orange !important; /* Higher transparency for visibility */
     background-color: var(
       --dark-teal
     ); /* Fallback color for devices with issues rendering rgba */

@@ -137,3 +137,18 @@ footer::before {
     padding: 20px;
   }
 }
+
+@media (max-width: 480px) {
+  footer {
+    padding: 15px 0;
+    backdrop-filter: blur(18px);
+  }
+
+  footer::before {
+    top: -1px;
+    background-color: yellow !important;
+    height: 11px;
+
+    backdrop-filter: blur(100px);
+  }
+}
