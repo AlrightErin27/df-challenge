@@ -20,8 +20,15 @@ export default function RegForm({ handleLogin }) {
 
   const handleRegister = async (event) => {
     event.preventDefault();
+
+    console.log("Starting registration...");
+    console.log("Using BASE_URL:", BASE_URL);
+
     try {
-      const response = await fetch(`${BASE_URL}/register`, {
+      const fetchURL = `${BASE_URL}/register`;
+      console.log("Making fetch request to:", fetchURL);
+
+      const response = await fetch(fetchURL, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(formData),
