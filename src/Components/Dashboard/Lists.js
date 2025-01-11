@@ -28,7 +28,7 @@ export default function Lists({ lists, error, onListClick }) {
             {lists.map((list) => (
               <li
                 key={list._id}
-                className="list-group-item d-flex justify-content-between align-items-center text-white"
+                className="list-group-item d-flex justify-content-between align-items-center"
                 onClick={() => onListClick(list)}
               >
                 <div className="ms-2 me-auto">
