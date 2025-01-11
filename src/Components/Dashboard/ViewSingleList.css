@@ -1,4 +1,4 @@
-.view-single-list-cont {
+.view-single-list-custom-container {
   background: var(--frosted-glass);
   backdrop-filter: blur(10px);
   border-radius: 16px;
@@ -10,18 +10,24 @@
   font-family: "Poppins", sans-serif;
 }
 
-.list-title {
+.custom-list-title {
   font-family: "DM Serif Text", serif;
   font-size: clamp(2rem, 1.5vw, 1.5rem);
   color: var(--white);
   text-align: center;
 }
 
-.status-badge {
+.custom-status-badge {
   display: inline-block;
 }
 
-.badge {
+.custom-checked-item {
+  text-decoration: line-through !important;
+  text-decoration-color: var(--dark-teal) !important;
+  text-decoration-thickness: 2px !important;
+}
+
+.custom-badge {
   padding: 8px 16px;
   border-radius: 20px;
   font-size: 0.9rem;
@@ -30,17 +36,17 @@
   letter-spacing: 1px;
 }
 
-.bg-custom-success {
+.custom-success {
   background-color: var(--dark-teal);
   color: var(--softer-accent);
 }
 
-.bg-custom-warning {
+.custom-warning {
   background-color: var(--softer-accent);
   color: var(--dark-teal);
 }
 
-.list-items-container {
+.custom-list-items-container {
   flex: 1;
   overflow-y: auto;
   padding: 15px;
@@ -50,38 +56,16 @@
   border-radius: 12px;
 }
 
-.list-items-container::-webkit-scrollbar {
-  width: 8px;
-}
-
-.list-items-container::-webkit-scrollbar-track {
-  background: rgba(255, 255, 255, 0.1);
-  border-radius: 10px;
-}
-
-.list-items-container::-webkit-scrollbar-thumb {
-  background: var(--accent);
-  border-radius: 10px;
-}
-
-.list-items-container::-webkit-scrollbar-thumb:hover {
-  background: var(--white);
-}
-
-.list-container-view {
-  list-style-type: decimal !important; /* Keep decimal numbering */
-  list-style-position: inside; /* Numbers align inside the container */
+.custom-list-view {
+  list-style-type: decimal !important;
+  list-style-position: inside;
   margin: 0;
   padding: 10px;
+  counter-reset: custom-item;
 }
 
-.list-container-view ol {
-  list-style-type: decimal !important;
-  list-style-position: inside !important;
-}
-
-.list-item {
-  display: flex; /* Keep flex for styling */
+.custom-list-item {
+  display: flex;
   align-items: center;
   margin: 8px 0;
   padding: 8px 12px;
@@ -91,26 +75,7 @@
   position: relative;
 }
 
-.list-item::before {
-  content: counter(item) ". ";
-  counter-increment: item;
-  color: var(--dark-teal);
-  margin-right: 10px;
-  text-align: left;
-  color: var(--white);
-}
-
-.list-container-view {
-  counter-reset: item;
-}
-
-.list-item:hover {
-  transform: translateX(4px);
-  background: rgba(255, 255, 255, 0.1) !important;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1), 0 1px 3px rgba(255, 255, 255, 0.05);
-}
-
-.delete-list-btn {
+.custom-delete-list-btn {
   width: 100%;
   max-width: 250px;
   margin: 20px auto 0;
@@ -125,62 +90,7 @@
   transition: all 0.3s ease;
 }
 
-.delete-list-btn:hover {
+.custom-delete-list-btn:hover {
   background: var(--white);
   color: var(--dark-teal);
-  transform: translateY(-2px);
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-}
-
-/* Media Queries for Responsiveness */
-@media (max-width: 768px) {
-  .view-single-list-cont {
-    padding: 20px;
-    border-radius: 12px;
-    width: 90%;
-  }
-
-  .list-title {
-    font-size: clamp(0.9rem, 1.4vw, 1.3rem);
-  }
-
-  .list-items-container {
-    padding: 15px;
-    max-height: 60vh;
-  }
-
-  .list-item {
-    padding: 8px 12px;
-  }
-
-  .delete-list-btn {
-    max-width: 100%;
-    font-size: clamp(0.9rem, 1.2vw, 1rem);
-  }
-}
-
-@media (max-width: 480px) {
-  .view-single-list-cont {
-    padding: 15px;
-    border-radius: 8px;
-    width: 100%;
-  }
-
-  .list-title {
-    font-size: clamp(0.8rem, 1.2vw, 1.1rem);
-  }
-
-  .list-items-container {
-    padding: 10px;
-    max-height: 70vh;
-  }
-
-  .list-item {
-    padding: 6px 10px;
-  }
-
-  .delete-list-btn {
-    font-size: clamp(0.8rem, 1rem, 0.9rem);
-    padding: 8px 12px;
-  }
 }

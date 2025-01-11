@@ -32,18 +32,11 @@ export default function Lists({ lists, error, onListClick }) {
                 onClick={() => onListClick(list)}
               >
                 <div className="ms-2 me-auto">
-                  {/* List title with strike-through if completed */}
+                  {/* List title with a conditional class */}
                   <div
                     className={`fw-bold ${
-                      list.checkedList ? "completed-list" : ""
+                      list.checkedList ? "completed-list" : "incomplete-list"
                     }`}
-                    style={{
-                      textDecoration: list.checkedList
-                        ? "line-through"
-                        : "none",
-                      textDecorationColor: "var(--dark-teal)",
-                      textDecorationThickness: "2px",
-                    }}
                   >
                     {list.title}
                   </div>
