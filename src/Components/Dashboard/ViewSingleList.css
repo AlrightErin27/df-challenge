@@ -97,7 +97,7 @@
 
 @media (max-width: 480px) {
   .item-text-smartphone {
-    color: var(--dark-teal);
+    color: var(--white);
   }
 
   .custom-list-items-container {
@@ -105,10 +105,10 @@
   }
 
   .custom-list-view {
-    background-color: red !important;
+    background-color: transparent !important;
   }
 
   .custom-list-item {
-    background-color: yellow !important;
+    background-color: #016b6b5c !important;
   }
 }
