@@ -124,6 +124,29 @@
 
   .list-group-item {
     padding: 8px;
+    /* Fallback and adjusted transparency for better rendering on mobile */
+    background: rgba(
+      255,
+      255,
+      255,
+      0.1
+    ) !important; /* Higher transparency for visibility */
+    background-color: var(
+      --light-teal
+    ); /* Fallback color for devices with issues rendering rgba */
+    border: 1px solid rgba(255, 255, 255, 0.1); /* Slightly stronger border visibility */
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px); /* Safari-specific fallback */
+    transition: all 0.3s ease;
+  }
+
+  .list-group-item:hover {
+    background: var(
+      --dark-teal
+    ) !important; /* Stronger hover effect for clarity */
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2),
+      0 1px 3px rgba(255, 255, 255, 0.1);
+    border-color: rgba(255, 255, 255, 0.2);
   }
 
   .list-group-item .fw-bold {
