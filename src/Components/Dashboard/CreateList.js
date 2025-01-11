@@ -45,7 +45,7 @@ export default function CreateList() {
       const token = localStorage.getItem("token");
       console.log("Attempting to create list...");
 
-      const response = await fetch("/api/lists", {
+      const response = await fetch(`${BASE_URL}/api/lists`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

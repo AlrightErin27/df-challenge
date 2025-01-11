@@ -18,7 +18,7 @@ export default function LoginForm({ handleLogin }) {
   const handleLoginSubmit = async (event) => {
     event.preventDefault();
     try {
-      const response = await fetch("/login", {
+      const response = await fetch(`${BASE_URL}/login`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(formData),

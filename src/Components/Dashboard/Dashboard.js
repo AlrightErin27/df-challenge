@@ -12,7 +12,7 @@ export default function Dashboard({ handleLogout }) {
   const fetchLists = async () => {
     try {
       const token = localStorage.getItem("token");
-      const response = await fetch("/api/lists", {
+      const response = await fetch(`${BASE_URL}/api/lists`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },

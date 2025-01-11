@@ -12,11 +12,14 @@ export default function ViewSingleList() {
     const fetchCurrentList = async () => {
       try {
         const token = localStorage.getItem("token");
-        const response = await fetch(`/api/lists/${currentList._id}`, {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        });
+        const response = await fetch(
+          `${BASE_URL}/api/lists/${currentList._id}`,
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
 
         if (response.ok) {
           const freshList = await response.json();
@@ -43,7 +46,7 @@ export default function ViewSingleList() {
     try {
       const token = localStorage.getItem("token");
       const response = await fetch(
-        `/api/lists/${currentList._id}/items/${itemId}`,
+        `${BASE_URL}/api/lists/${currentList._id}/items/${itemId}`,
         {
           method: "PATCH",
           headers: {
@@ -70,7 +73,7 @@ export default function ViewSingleList() {
   const handleDelete = async () => {
     try {
       const token = localStorage.getItem("token");
-      const response = await fetch(`/api/lists/${currentList._id}`, {
+      const response = await fetch(`${BASE_URL}/api/lists/${currentList._id}`, {
         method: "DELETE",
         headers: {
           Authorization: `Bearer ${token}`,
