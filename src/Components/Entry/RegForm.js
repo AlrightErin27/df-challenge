@@ -1,23 +1,25 @@
-import React, { useState } from "react";
+import React, { useState } from "react"; //
 import BASE_URL from "../../config";
 import "./RegForm.css";
 
-//  * Registration form for new users.
-//  * Sends form data to the backend /register endpoint.
+//  * Sends user data (email, username, password) to the backend `/register` endpoint.
+//  * @param {function} handleLogin - Callback function to notify parent (Home.js) about login state change.
 export default function RegForm({ handleLogin }) {
   const [formData, setFormData] = useState({
     email: "",
     username: "",
     password: "",
   });
-
   const [message, setMessage] = useState("");
 
+  //  * Updates the corresponding field in formData when the user types.
   const handleChange = (event) => {
     const { id, value } = event.target;
     setFormData((prevData) => ({ ...prevData, [id]: value }));
   };
 
+  //  * Handles form submission for user registration.
+  //  * Sends a POST request to the `/register` endpoint with the form data.
   const handleRegister = async (event) => {
     event.preventDefault();
 
@@ -28,17 +30,18 @@ export default function RegForm({ handleLogin }) {
       const fetchURL = `${BASE_URL}/register`;
       console.log("Making fetch request to:", fetchURL);
 
+      // Make a POST request to register the user
       const response = await fetch(fetchURL, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(formData),
+        method: "POST", // HTTP method for creating new resources
+        headers: { "Content-Type": "application/json" }, // Set request headers
+        body: JSON.stringify(formData), // Convert form data to JSON
       });
 
-      const data = await response.json();
+      const data = await response.json(); // Parse the JSON response
       if (response.ok && data.token) {
-        // Ensure a token is received
-        localStorage.setItem("token", data.token); // Save token in localStorage
-        handleLogin(); // Notify Home.js to check token and set state
+        // If registration is successful and a token is received
+        localStorage.setItem("token", data.token);
+        handleLogin(); // Notify Home.js to check token and update login state
         setMessage("Registration successful!");
       } else {
         setMessage(data.error || "Registration failed.");
@@ -52,6 +55,7 @@ export default function RegForm({ handleLogin }) {
     <div className="reg-form-cont">
       <h2>Register</h2>
       <form onSubmit={handleRegister}>
+        {/* Email Input */}
         <label htmlFor="email">Email</label>
         <input
           type="email"
@@ -61,6 +65,7 @@ export default function RegForm({ handleLogin }) {
           onChange={handleChange}
           required
         />
+        {/* Username Input */}
         <label htmlFor="username">Username</label>
         <input
           type="text"
@@ -70,6 +75,7 @@ export default function RegForm({ handleLogin }) {
           onChange={handleChange}
           required
         />
+        {/* Password Input */}
         <label htmlFor="password">Password</label>
         <input
           type="password"
@@ -79,8 +85,10 @@ export default function RegForm({ handleLogin }) {
           onChange={handleChange}
           required
         />
+
         <button type="submit">Register</button>
       </form>
+
       {message && <p className="message">{message}</p>}
     </div>
   );

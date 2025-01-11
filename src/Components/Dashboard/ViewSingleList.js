@@ -3,23 +3,22 @@ import "./ViewSingleList.css";
 import BASE_URL from "../../config";
 import { useState, useEffect } from "react";
 
+//  * This component allows the user to view a single to-do list, toggle item statuses, add new items, or delete the list.
 export default function ViewSingleList() {
-  const location = useLocation(); // Access route-specific state passed via navigation
-  const navigate = useNavigate(); // Navigate programmatically between routes
-  const [currentList, setCurrentList] = useState(location.state?.list); // Store the current list's details
-  const [newItemInput, setNewItemInput] = useState(""); // Input for adding a new item
-  const { refreshLists } = useOutletContext(); // Refresh function passed via context from parent component
+  const location = useLocation();
+  const navigate = useNavigate();
+  const [currentList, setCurrentList] = useState(location.state?.list);
+  const [newItemInput, setNewItemInput] = useState("");
+  const { refreshLists } = useOutletContext();
 
-  /**
-   * Fetch the latest version of the current list (GET request).
-   * Ensures that if the list changes elsewhere, the data here is up to date.
-   */
+  //  * Fetches the latest version of the current list (GET request).
+  //  * Ensures the data displayed in this component is up to date with any changes made elsewhere.
   useEffect(() => {
     const fetchCurrentList = async () => {
       try {
         const token = localStorage.getItem("token"); // Retrieve the user's authentication token
         const response = await fetch(
-          `${BASE_URL}/api/lists/${currentList._id}`, // GET request to fetch a specific list
+          `${BASE_URL}/api/lists/${currentList._id}`, // GET request to fetch the current list
           {
             headers: {
               Authorization: `Bearer ${token}`, // Include token for authentication
@@ -28,26 +27,24 @@ export default function ViewSingleList() {
         );
 
         if (response.ok) {
-          const freshList = await response.json(); // Parse the returned JSON data
-          setCurrentList(freshList); // Update state with the latest list data
+          const freshList = await response.json();
+          setCurrentList(freshList);
         }
       } catch (error) {
-        console.error("Error fetching list:", error); // Log errors for debugging
+        console.error("Error fetching list:", error);
       }
     };
 
     fetchCurrentList();
-  }, [currentList._id]); // Re-run this effect only when the list ID changes
+  }, [currentList._id]);
 
-  /**
-   * Toggles the `checkedItem` state of a specific item in the list (PATCH request).
-   * Clicking an item sends a PATCH request to update its state in the database.
-   */
+  //  * Toggles the `checkedItem` state of a specific list item (PATCH request).
+  //  * Sends a PATCH request to update the item's status in the database.
   const handleItemClick = async (itemId, currentChecked) => {
     try {
-      const token = localStorage.getItem("token"); // Retrieve the user's authentication token
+      const token = localStorage.getItem("token");
       const response = await fetch(
-        `${BASE_URL}/api/lists/${currentList._id}/items/${itemId}`, // PATCH request to update an item's `checkedItem` status
+        `${BASE_URL}/api/lists/${currentList._id}/items/${itemId}`, // PATCH request to update the item's checked status
         {
           method: "PATCH", // HTTP method for partial updates
           headers: {
@@ -55,83 +52,77 @@ export default function ViewSingleList() {
             Authorization: `Bearer ${token}`, // Include token for authentication
           },
           body: JSON.stringify({
-            checkedItem: !currentChecked, // Toggle the current `checkedItem` value
+            checkedItem: !currentChecked, // Toggle the item's current checked state
           }),
         }
       );
 
       if (response.ok) {
-        const updatedList = await response.json(); // Parse the updated list data
-        setCurrentList(updatedList); // Update state with the modified list
+        const updatedList = await response.json();
+        setCurrentList(updatedList);
       } else {
         console.error("Failed to update item");
       }
     } catch (error) {
-      console.error("Error updating item:", error); // Log errors for debugging
+      console.error("Error updating item:", error);
     }
   };
 
-  /**
-   * Adds a new item to the list (POST request).
-   * The new item's text is sent to the server and appended to the current list.
-   */
+  //  * Adds a new item to the current list (POST request).
+  //  * Sends the new item's text to the backend, which appends it to the list.
   const addItemToList = async () => {
-    if (newItemInput.trim() === "") return; // Prevent empty submissions
+    if (newItemInput.trim() === "") return; // Prevent adding empty items
 
     try {
-      const token = localStorage.getItem("token"); // Retrieve the user's authentication token
+      const token = localStorage.getItem("token");
       const response = await fetch(
-        `${BASE_URL}/api/lists/${currentList._id}/items`, // POST request to add a new item to the list
+        `${BASE_URL}/api/lists/${currentList._id}/items`,
         {
-          method: "POST", // HTTP method for creating new resources
+          method: "POST",
           headers: {
             "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`, // Include token for authentication
+            Authorization: `Bearer ${token}`,
           },
-          body: JSON.stringify({ text: newItemInput }), // Send the item's text
+          body: JSON.stringify({ text: newItemInput }), // Send the new item's text
         }
       );
 
       if (response.ok) {
-        const updatedList = await response.json(); // Parse the updated list data
+        const updatedList = await response.json();
         setCurrentList(updatedList); // Update state with the modified list
         setNewItemInput(""); // Clear the input field
       } else {
         console.error("Failed to add item to the list");
       }
     } catch (error) {
-      console.error("Error adding item to list:", error); // Log errors for debugging
+      console.error("Error adding item to list:", error);
     }
   };
 
-  /**
-   * Deletes the entire list (DELETE request).
-   * Removes the list from the database and navigates back to the dashboard.
-   */
+  //  * Deletes the current list (DELETE request).
+  //  * Removes the list from the database and navigates back to the dashboard.
   const handleDelete = async () => {
     try {
-      const token = localStorage.getItem("token"); // Retrieve the user's authentication token
+      const token = localStorage.getItem("token");
       const response = await fetch(`${BASE_URL}/api/lists/${currentList._id}`, {
-        method: "DELETE", // HTTP method for deleting resources
+        method: "DELETE",
         headers: {
-          Authorization: `Bearer ${token}`, // Include token for authentication
+          Authorization: `Bearer ${token}`,
         },
       });
 
       if (response.ok) {
         refreshLists(); // Refresh the list of all lists in the dashboard
-        navigate("/dashboard"); // Navigate back to the dashboard
+        navigate("/dashboard");
       } else {
         console.error("Failed to delete list");
       }
     } catch (error) {
-      console.error("Error deleting list:", error); // Log errors for debugging
+      console.error("Error deleting list:", error);
     }
   };
 
-  /**
-   * Formats a date string into a user-friendly format.
-   */
+  //  * Formats a date string into a human-readable format.
   const formatDate = (dateString) => {
     const date = new Date(dateString);
     return date.toLocaleDateString("en-US", {
@@ -161,7 +152,7 @@ export default function ViewSingleList() {
         <ol className="custom-list-view">
           {currentList.items.map((item) => (
             <li
-              key={`${item._id}-${item.checkedItem}`} // Unique key ensures React re-renders correctly
+              key={`${item._id}-${item.checkedItem}`}
               className={`custom-list-item d-flex align-items-center ${
                 item.checkedItem ? "custom-checked-item" : ""
               }`}

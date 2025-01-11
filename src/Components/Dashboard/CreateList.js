@@ -4,14 +4,19 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import "./CreateList.css";
 import { useNavigate, useOutletContext } from "react-router-dom";
 
+//  * This component allows the user to create a new list with a title and multiple items.
 export default function CreateList() {
   const [title, setTitle] = useState("");
   const [items, setItems] = useState([]);
   const [itemInput, setItemInput] = useState("");
   const [message, setMessage] = useState("");
   const navigate = useNavigate();
+
+  // Shared context function to refresh the list of all lists (passed from parent)
   const { refreshLists } = useOutletContext();
 
+  //  * Adds a new item to the list.
+  //  * The item is only added if the input is not empty.
   function addItem() {
     if (itemInput.trim() !== "") {
       setItems([
@@ -21,18 +26,20 @@ export default function CreateList() {
           checkedItem: false,
         },
       ]);
-      setItemInput("");
+      setItemInput(""); // Clear the input field
     }
   }
 
+  //  * Removes an item from the list.
   function removeItem(index) {
-    setItems(items.filter((_, i) => i !== index));
+    setItems(items.filter((_, i) => i !== index)); // Remove the item at the specified index
   }
 
+  //  * Submits the list to the backend via a POST request.
+  //  * Handles validation to ensure the title and at least one item are provided.
   async function handleFinish(e) {
-    e.preventDefault();
+    e.preventDefault(); // Prevent the default form submission behavior
 
-    // Basic validation
     if (!title.trim()) {
       setMessage("Please enter a list title");
       return;
@@ -46,6 +53,7 @@ export default function CreateList() {
       const token = localStorage.getItem("token");
       console.log("Attempting to create list...");
 
+      // Make a POST request to create the new list
       const response = await fetch(`${BASE_URL}/api/lists`, {
         method: "POST",
         headers: {
@@ -53,19 +61,19 @@ export default function CreateList() {
           Authorization: `Bearer ${token}`,
         },
         body: JSON.stringify({
-          title: title,
+          title: title, // Title of the list
           items: items.map((item) => ({
-            text: item.text,
-            checkedItem: item.checkedItem,
+            text: item.text, // Text of the item
+            checkedItem: item.checkedItem, // Checked state of the item
           })),
-          checkedList: false,
+          checkedList: false, // Initial state of the list
         }),
       });
 
       const data = await response.json();
       if (response.ok) {
         console.log("List created successfully");
-        await refreshLists(); // refresh dashboard to reveal newly created list
+        await refreshLists();
         navigate("/dashboard");
       } else {
         setMessage(data.error || "Failed to create list");
@@ -79,8 +87,11 @@ export default function CreateList() {
   return (
     <div className="create-list-cont container">
       <h2 className="text-center mb-4">Create List</h2>
+      {/* Display message if present */}
       {message && <p className="alert alert-danger">{message}</p>}
+
       <form className="mb-4" onSubmit={handleFinish}>
+        {/* List Title Input */}
         <div className="mb-3">
           <input
             type="text"
@@ -92,6 +103,7 @@ export default function CreateList() {
           />
         </div>
 
+        {/* Add Item Input and Button */}
         <div className="input-row mb-3 d-flex align-items-center">
           <span className="me-2">•</span>
           <input
@@ -110,15 +122,16 @@ export default function CreateList() {
           </button>
         </div>
 
-        <div className={` ${items.length === 0 ? "empty-list" : ""}`}>
+        {/* Display List of Items */}
+        <div className={`${items.length === 0 ? "empty-list" : ""}`}>
           {items.map((item, index) => (
             <li key={index} className="list-item d-flex align-items-center">
               <p
                 className="flex-grow-1 mb-0"
                 style={{
-                  textDecoration: item.checkedItem ? "line-through" : "none",
-                  textDecorationColor: "var(--dark-teal)",
-                  textDecorationThickness: "2px",
+                  textDecoration: item.checkedItem ? "line-through" : "none", // Strike-through if item is checked
+                  textDecorationColor: "var(--dark-teal)", // Color for the strike-through
+                  textDecorationThickness: "2px", // Thickness of the strike-through
                 }}
               >
                 {item.text}
@@ -126,7 +139,7 @@ export default function CreateList() {
               <button
                 type="button"
                 className="btn remove-item-btn"
-                onClick={() => removeItem(index)}
+                onClick={() => removeItem(index)} // Remove the item at the specified index
               >
                 x
               </button>
