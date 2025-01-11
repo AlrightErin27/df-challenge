@@ -51,6 +51,30 @@ export default function RegForm({ handleLogin }) {
     }
   };
 
+  function interpretErrs() {
+    if (
+      message.includes(
+        "E11000 duplicate key error collection: claritydb.users index: email_1 dup"
+      )
+    ) {
+      return <>Email already connected to an account</>;
+    } else if (
+      message.includes(
+        "User validation failed: email: Please enter a valid email address"
+      )
+    ) {
+      return <>Invalid email</>;
+    } else if (
+      message.includes("User validation failed: username: Path `username`")
+    ) {
+      return <>Username must be longer than 3 characters</>;
+    } else if (message !== "") {
+      return <>An unexpected error occurred</>;
+    }
+  }
+
+  console.log(message);
+
   return (
     <div className="reg-form-cont">
       <h2>Register</h2>
@@ -89,7 +113,7 @@ export default function RegForm({ handleLogin }) {
         <button type="submit">Register</button>
       </form>
 
-      {message && <p className="message">{message}</p>}
+      {message && <p className="message">{interpretErrs()}</p>}
     </div>
   );
 }

@@ -40,11 +40,19 @@ export default function Lists({ lists, error, onListClick }) {
     });
   };
 
+  function displayUsername() {
+    if (username !== 0 && username.charAt(username.length - 1) === "s") {
+      return <h2 className="text-center mb-4">{username}' Lists</h2>;
+    } else if (username !== 0) {
+      return <h2 className="text-center mb-4">{username}'s Lists</h2>;
+    } else {
+      return <h2 className="text-center mb-4">Your Lists</h2>;
+    }
+  }
+
   return (
     <div className="lists-cont">
-      <h2 className="text-center mb-4">
-        {username !== "" ? username : "Your"}'s' Lists
-      </h2>
+      {displayUsername()}
 
       {/* Error handling display */}
       {error && (
