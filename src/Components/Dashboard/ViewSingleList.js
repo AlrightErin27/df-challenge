@@ -119,11 +119,13 @@ export default function ViewSingleList() {
               <div
                 className="fw-bold"
                 style={{
-                  textDecoration: item.checkedItem ? "line-through" : "none",
+                  textDecorationLine: item.checkedItem
+                    ? "line-through"
+                    : "none",
                   textDecorationColor: item.checkedItem
                     ? "var(--dark-teal)"
-                    : "none", // Ensure the line-through color
-                  textDecorationThickness: "2px",
+                    : "none",
+                  textDecorationThickness: item.checkedItem ? "2px" : "initial",
                 }}
               >
                 {item.text}

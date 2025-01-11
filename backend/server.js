@@ -4,11 +4,15 @@ const dotenv = require("dotenv");
 const mongoose = require("mongoose");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
+const cors = require("cors");
+const path = require("path");
+
+//Models
 const User = require("./models/User");
 const List = require("./models/List");
-const cors = require("cors");
 
 // npm run start-all
+
 // Initialize dotenv to use environment variables
 dotenv.config();
 
@@ -22,10 +26,19 @@ app.use(express.json());
 // Enable CORS
 app.use(cors());
 
+if (process.env.NODE_ENV === "production") {
+  // Serve static files from the React frontend build directory
+  app.use(express.static(path.join(__dirname, "frontend/build")));
+}
+
 // Connect to MongoDB
 const connectToDatabase = async () => {
   try {
-    await mongoose.connect(process.env.MONGO_URI);
+    // await mongoose.connect(process.env.MONGO_URI);
+    await mongoose.connect(process.env.MONGO_URI, {
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
+    });
     console.log("Connected to MongoDB 🚀");
   } catch (error) {
     console.error("MongoDB connection error:", error.message);
@@ -33,6 +46,7 @@ const connectToDatabase = async () => {
   }
 };
 
+// USED FOR JEST BELOW!!!
 // const connectToDatabase = async () => {
 //   try {
 //     const mongoURI =
@@ -307,6 +321,14 @@ app.delete("/api/lists/:listId", async (req, res) => {
     res.status(500).json({ error: "Error deleting list" });
   }
 });
+
+// ---------------------------------------------------------- Production for Routes
+// Serve React frontend for unmatched routes (only in production)
+if (process.env.NODE_ENV === "production") {
+  app.get("*", (req, res) => {
+    res.sendFile(path.join(__dirname, "frontend/build", "index.html"));
+  });
+}
 
 // ---------------------------------------------------------- Error Handling Middleware
 //  * Error handling middleware for unexpected server errors.
